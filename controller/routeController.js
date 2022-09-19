@@ -46,6 +46,10 @@ function renderLogin(req, res, next) {
     res.status(200).render('pages/login');
 }
 
+function renderNotFound(req, res, next) {
+    res.status(200).render('pages/notfound');
+}
+
 function logout(req, res, next) {
     req.session.destroy((err) => {
         if (err) {
@@ -133,4 +137,5 @@ export {
     logout,
     fetchGallery,
     fetchChatHistory,
+    renderNotFound
 }

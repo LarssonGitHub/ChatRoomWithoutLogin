@@ -43,7 +43,7 @@ async function getChatPagination(startIndex) {
     try {
         const chatResults = await Chat.find({}).sort({postDate: -1}).limit(15).skip(Number(startIndex));
         if (!chatResults || chatResults.length === 0) {
-            throw "There sadly isn't any posts online yet.";
+            throw "No more posts to load";
         }
         return chatResults;
     } catch (err) {

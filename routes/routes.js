@@ -17,7 +17,8 @@ import {
     submitLogin,
     logout,
     fetchGallery,
-    fetchChatHistory
+    fetchChatHistory,
+    renderNotFound
 } from "../controller/routeController.js"
 
 const router = express.Router();
@@ -51,9 +52,15 @@ router.get("/login", renderLogin);
 
 router.post("/login", submitLogin);
 
-router.get("/gallery", checkUserAccess, fetchGallery);
+router.get("/gallery", fetchGallery);
 
-router.get("/chatHistory/:startIndex", checkUserAccess, fetchChatHistory);
+router.get("/chatHistory/:startIndex", fetchChatHistory);
+
+router.get('/*', renderNotFound);
+router.post('/*', renderNotFound);
+router.put('/*', renderNotFound);
+router.delete('/*', renderNotFound);
+
 
 export {
     router,
