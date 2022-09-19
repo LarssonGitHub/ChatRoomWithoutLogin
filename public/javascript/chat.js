@@ -185,7 +185,7 @@ function sendChatMsgToServer(chatValue) {
 
 function fetchPreviousChat() {
     loadPreChatBtn.disabled = true;
-    fetch(`/chatHistory/${paginationIntegerForChat}`)
+    fetch(`api/chatHistory/${paginationIntegerForChat}`)
         .then(response => response.json())
         .then(data => {
             loadPreChatBtn.disabled = false;

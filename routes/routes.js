@@ -52,9 +52,9 @@ router.get("/login", renderLogin);
 
 router.post("/login", submitLogin);
 
-router.get("/gallery", fetchGallery);
+router.get("/api/gallery", fetchGallery);
 
-router.get("/chatHistory/:startIndex", fetchChatHistory);
+router.get("/api/chatHistory/:startIndex", fetchChatHistory);
 
 router.get('/*', renderNotFound);
 router.post('/*', renderNotFound);

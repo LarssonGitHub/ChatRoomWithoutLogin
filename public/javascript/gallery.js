@@ -31,7 +31,7 @@ function fetchGallery() {
     imagesToggleBtn.disabled = true;
     displayOfCanvas(gallerySection);
     activeElement(imagesToggleBtn)
-    fetch('/gallery/')
+    fetch('api/gallery/')
         .then(response => response.json())
         .then(data => {
             imagesToggleBtn.disabled = false;
