@@ -9,14 +9,7 @@ import {
 
 async function resetDatabaseStatus() {
     try {
-        const updateUsers = await Users.updateMany({}, {
-            userStatus: "offline",
-            tempWebsocketId: false
-        })
-        // This destroys the server if no users are registered:
-        // if (!updateUsers) {
-        //     throw "No users exist";
-        // }
+        const updateUsers = await Users.deleteMany({})
         return updateUsers;
     } catch (err) {
         console.log(err, "22");
@@ -27,10 +20,6 @@ async function resetDatabaseStatus() {
 async function getAllUsers() {
     try {
         const arrayOfAllUsers = await Users.find({});
-        // This destroys the server if no users are registered:
-        // if (!arrayOfAllUsers || arrayOfAllUsers.length === 0) {
-        //     throw "No users exist";
-        // }
         return arrayOfAllUsers;
     } catch (err) {
         console.log(err, "23");
@@ -41,7 +30,7 @@ async function getAllUsers() {
 async function resetDatabaseUsers() {
     try {
         await resetDatabaseStatus()
-        console.log("All users stats reset!");
+        console.log("All old users deleted!");
     } catch (err) {
         console.log(err, "24");
         console.log("Something Went wrong when resetting database!");
