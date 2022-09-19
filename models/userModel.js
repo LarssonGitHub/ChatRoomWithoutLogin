@@ -48,19 +48,14 @@ async function resetDatabaseUsers() {
     }
 }
 
-async function addNewUser(userName, userPassword) {
+async function addNewUser(userName) {
     try {
         const newUser = new Users({
             userName: userName,
-            userPassword: userPassword,
-            userStatus: "offline",
+            userStatus: "online",
             tempWebsocketId: false
         });
-        let success = await newUser.save();
-        if (success) {
-            return true
-        }
-        throw "Something went wrong when saving user"
+        return await newUser.save();
     } catch (err) {
         console.log(err, "25");
         return Promise.reject(err);
@@ -102,15 +97,6 @@ async function setIdAndStatusForWebsocket(wsID) {
     try {
         const userIdFromArray = usersInTempMemory[0];
         usersInTempMemory.shift();
-
-        // better way?
-        // for(let i = 0; i < usersInTempMemory.length; i++) {
-        //     if(usersInTempMemory[i] == userIdFromArray) {
-        //         usersInTempMemory.splice(i, 1);
-        //         break;
-        //     }
-        // }
-
         const updateUser = await Users.findByIdAndUpdate(userIdFromArray, {
             userStatus: "online",
             tempWebsocketId: wsID,
@@ -130,23 +116,15 @@ async function setIdAndStatusForWebsocket(wsID) {
 async function removeIdAndStatusForWebsocket(wsId) {
     try {
         const currentUserObject = await getUser(wsId);
-
         if (!currentUserObject.length === 0 || !currentUserObject[0]._id) {
             throw "something went wrong when searching for user id!";
         }
-
-        const updateUser = await Users.findByIdAndUpdate(currentUserObject[0]._id, {
-            userStatus: "offline",
-            tempWebsocketId: false
-        }, {
-            new: true
-        })
-
-        if (!updateUser) {
+        const deleteUser = await Users.findByIdAndDelete(currentUserObject[0]._id).lean();
+        console.log(deleteUser)
+        if (deleteUser === null) {
             throw "update user is undefined or null";
         }
-
-        return updateUser;
+        return deleteUser;
     } catch (err) {
         console.log(err, "29");
         return Promise.reject("One user wasn't correctly logged out so the list of users online may not bee accurate. However, the app should still work, so chat away!");

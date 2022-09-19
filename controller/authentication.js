@@ -16,17 +16,17 @@ async function checkIfUserAlreadyExist(newUsername) {
     return false
 }
 
-async function registerNewUser(userName, userPassword) {
+async function registerNewUser(userName) {
     try {
         const userAlreadyExist = await checkIfUserAlreadyExist(userName);
         if (userAlreadyExist) {
             throw "Sorry, user already exist. Pick another name"
         }
-        const userCanBeAdded = await addNewUser(userName, userPassword);
+        const userCanBeAdded = await addNewUser(userName);
         if (!userCanBeAdded) {
             throw "Something went wrong in registering process"
         }
-        return true;
+        return userCanBeAdded;
     } catch (err) {
         console.log(err, "36");
         return Promise.reject(err);

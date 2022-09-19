@@ -8,7 +8,6 @@ import dotenv from 'dotenv';
 
 import {
     checkUserAccess,
-    denyUserRoute
 } from "../middleware/accession.js";
 
 
@@ -50,13 +49,13 @@ router.get("/", checkUserAccess, renderIndex);
 
 router.get('/logout', checkUserAccess, logout);
 
-router.get("/login/", denyUserRoute, renderLogin);
+router.get("/login/", renderLogin);
 
-router.post("/login/", denyUserRoute, submitLogin);
+router.post("/login/", submitLogin);
 
-router.get("/register/", denyUserRoute, renderRegistrar);
+router.get("/register/", renderRegistrar);
 
-router.post("/register/", denyUserRoute, submitRegistrar);
+router.post("/register/", submitRegistrar);
 
 router.get("/gallery/", checkUserAccess, fetchGallery);
 

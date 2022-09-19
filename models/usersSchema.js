@@ -5,12 +5,6 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     userName: {
         type: String,
-        minlength: 2,
-        maxlength: 20,
-        required: true
-    },
-    userPassword: {
-        type: String,
         required: true
     },
     userStatus: {

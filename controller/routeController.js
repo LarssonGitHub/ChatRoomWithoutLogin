@@ -27,9 +27,17 @@ const {
 
 async function renderIndex(req, res, next) {
     try {
-        req.session.userHasLoggedIn = true;
         usersInTempMemory.push(req.session.user._id)
-        res.status(200).render('pages/index');
+        req.session.destroy((err) => {
+            if (err) {
+                console.log(err, "from route controller");
+                res.status(404).redirect('/')
+                return
+            }
+            res.clearCookie(SESSION_NAME);
+            console.log('cookie destroyed');
+            res.status(200).render('pages/index');
+        });
     } catch (err) {
         console.log(err, "14");
         const errMessage = errHasSensitiveInfo(err);
@@ -59,10 +67,9 @@ function logout(req, res, next) {
 async function submitLogin(req, res, next) {
     try {
         const {
-            userName,
-            userPassword
+            userName
         } = req.body;
-        const userIsValidated = await loginUser(userName, userPassword);
+        const userIsValidated = await registerNewUser(userName);
         if (userIsValidated) {
             req.session.userHasAccess = true;
             req.session.user = userIsValidated;
@@ -72,9 +79,9 @@ async function submitLogin(req, res, next) {
             })
             return;
         }
-        throw "Something went... Kind of wrong, not sure what but it did!"
+        throw "Something went wrong on our end when trying to log in";
     } catch (err) {
-        console.log(err, "15");
+        console.log(err, "16");
         const errMessage = errHasSensitiveInfo(err);
         res.status(404).json({
             err: errMessage,
@@ -114,7 +121,9 @@ async function fetchGallery(req, res, next) {
     try {
         const collectionExist = await getCollectionOfGallery();
         if (collectionExist || collectionExist.length > 0) {
-            res.json({message: collectionExist});
+            res.json({
+                message: collectionExist
+            });
             return;
         }
         throw "Something went wrong on our end when fetching for gallery";
@@ -127,16 +136,6 @@ async function fetchGallery(req, res, next) {
     }
 }
 
-// Unused routes, created a conflict which reset the middleware, aka userHasLoggedIn
-// function pageNotfound(req, res, next) {
-//     console.log("Don't try to go to a side that doesn't exist!");
-//     res.status(200).redirect("/")
-// }
-// router.get('*', pageNotfound);
-// router.post('*', pageNotfound);
-// router.put('*', pageNotfound);
-// router.delete('*', pageNotfound);
-
 async function fetchChatHistory(req, res) {
     try {
         const {
@@ -145,7 +144,9 @@ async function fetchChatHistory(req, res) {
         const chatPagination = await getChatPagination(startIndex);
         console.log("chat pagination", chatPagination);
         if (chatPagination || chatPagination.length > 0) {
-            res.json({message: chatPagination});
+            res.json({
+                message: chatPagination
+            });
             return;
         }
         throw "Something went wrong on our end when fetching for chats";

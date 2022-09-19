@@ -87,7 +87,7 @@ wss.on('connection', async (ws, req) => {
     ws.on("close", async () => {
         try {
             broadcast(await botGoodbyeMsg(ws.id))
-            console.log("old user set as offline!", await removeIdAndStatusForWebsocket(ws.id));
+            console.log("old user DELETED  as offline!", await removeIdAndStatusForWebsocket(ws.id));
             broadcast(await clientSize())
             broadcast(await clientList(ws.id))
         } catch (err) {
@@ -97,7 +97,6 @@ wss.on('connection', async (ws, req) => {
     });
     ws.on("message", async (incomingData) => {
         try {
-            console.log(incomingData, "incoming data");
             const validatedData = await validateTypeOfIncomingMsg(incomingData);
             broadcast(await handleOutgoingDataToClient(validatedData, ws.id));
         } catch (err) {
