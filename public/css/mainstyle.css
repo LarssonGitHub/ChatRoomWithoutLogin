@@ -81,11 +81,13 @@ label {
     background-color: #FFBABA;
     padding: 0.9rem 1.3rem;
 }
-
+#imgImgContainer {
+    
+}
 #errorContent {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     color: #D8000C;
     gap: 0.5rem;
@@ -140,7 +142,9 @@ body {
 #loadPreChatBtn {
     margin-bottom: 0.9rem;
 }
-
+.clientImg {
+    margin: 0.5rem 0;
+}
 .clientChatContainer {
     background-color: lightblue;
 }
@@ -220,8 +224,19 @@ body {
 
 #msgImgInputRemove {
     text-align: end;
+    color: red;
+    font-weight: 500;
+    /* margin-left: 0.5rem; */
+    cursor: pointer;
+    text-decoration: underline;
+ 
 }
-
+#clientsOnlineConatiner {
+    padding: 0 1.3rem 0.8rem 1.3rem;
+}
+#msgImgContainer {
+    font-size: 0.8rem;
+}
 .chatTemplateContainer {
     margin: 0.4rem 0;
     padding: 0.5rem 1rem;
@@ -278,7 +293,7 @@ body {
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-    margin: 0.5rem 0;
+    margin: 0 0 0.5rem 0;
 }
 
 .offCanvasHeader {
@@ -300,7 +315,7 @@ body {
 
 .chatContent img {
     width: 100%;
-    max-width: 400px;
+    /* max-width: 400px; */
 }
 
 .closeGallerySection {

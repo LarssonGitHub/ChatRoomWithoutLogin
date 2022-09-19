@@ -1,11 +1,12 @@
 <section id="usersOnlineSection" class="off-canvas">
     <header class="offCanvasHeader">
         <div class="closeSection">
-            <h3>People online now!</h3>
+            <h3>Friends and strangers</h3>
             <i id="closeUsersOnlineSection" class="fa fa-window-close closeSectionMark" aria-hidden="true"></i>
         </div>
     </header>
     <section>
+        <p id="clientsOnlineConatiner">Active people: <b><span id="clientsOnline">0</span></b></p>
         <ul id="ListOfClients">
         </ul>
     </section>
@@ -21,16 +22,18 @@
         <button id="loadPreChatBtn">Load earlier chat messages!</button>
     </div>
     <section id="typingContainer">
-        <p>People online: <span id="clientsOnline">0</span></p>
+   
+        <div id="imgImgContainer" class="hidden">
+            <!-- This image tag is not meant to be seen -->
+            <img class="hidden" id="msgImgInput" width="200">
+            <p id="msgImgContainer">Image is ready and will be uploaded with your next post! <span id="msgImgInputRemove">(Remove)</span></p>
+        </div>
         <div id="textAreaContainer">
             <textarea rows="2" id="chatTextarea" name="chatTextarea" rows="4" cols="50"
                 placeholder="Type and press Enter"></textarea>
             <button id="sendToWebserverBtn"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
         </div>
-        <div id="imgImgContainer" class="hidden">
-            <img id="msgImgInput" width="200">
-            <i id="msgImgInputRemove" class="fa fa-window-close closeSectionMark" aria-hidden="true"></i>
-        </div>
+    
     </section>
 </section>
 </div>
