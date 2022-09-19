@@ -45,10 +45,10 @@ function playSound() {
 function updateFavicon(incomingNewMsg) {
     if (incomingNewMsg) {
 
-        console.log("favicon with dot added! Or it should");
+        //console.log("favicon with dot added! Or it should");
         return;
     }
-    console.log("favicon without dot added!");
+    //console.log("favicon without dot added!");
 }
 
 function notifyNewMessage() {
@@ -197,7 +197,7 @@ function fetchPreviousChat() {
                 throw data.err;
             }
         }).catch((err) => {
-            console.log(err, "31");
+            //console.log(err, "31");
             manageErrorAndAppendToPopupBox(err)
         });
 

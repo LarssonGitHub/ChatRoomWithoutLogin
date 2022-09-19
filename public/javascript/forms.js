@@ -21,14 +21,14 @@ function ObjectifyEntriesAndStringify(data) {
 //     fetch('/login', options)
 //       .then(resp => resp.json())
 //       .then(data => {
-//         console.log(data);
+//         //console.log(data);
 //       }).catch(err => {
-//         console.log(err);
+//         //console.log(err);
 //       });
 //   })
 
   // registerForm.addEventListener("submit", e => {
   //   e.preventDefault()
   //   const formEntries = ObjectifyEntriesAndStringify(e.target)
-  //   console.log("registered....!");
+  //   //console.log("registered....!");
   // })

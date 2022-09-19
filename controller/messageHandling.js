@@ -18,7 +18,7 @@ async function getUserName(wsId) {
         const userObj = await getUser(wsId);
         return userObj[0].userName;
     } catch (err) {
-        console.log(err, "4");
+        //console.log(err, "4");
         return Promise.reject(err);
     }
 }
@@ -31,7 +31,7 @@ async function botWelcomeMsg(wsId) {
         const message = await validateTypeOfOutgoingMsg(constructedMessage);
         return message;
     } catch (err) {
-        console.log(err, "5");
+        //console.log(err, "5");
         return Promise.reject(err);
     }
 }
@@ -43,7 +43,7 @@ async function botGoodbyeMsg(wsId) {
         const message = await validateTypeOfOutgoingMsg(constructedMessage)
         return message;
     } catch (err) {
-        console.log(err, "6");
+        //console.log(err, "6");
         return Promise.reject(err);
     }
 }
@@ -56,7 +56,7 @@ async function botErrorPrivateMsg(wsId, errorReason) {
         const message = await validateTypeOfOutgoingMsg(constructedMessage)
         return message;
     } catch (err) {
-        console.log(err, "7");
+        //console.log(err, "7");
         const constructedMessage = formatToChatObj("errorMsg", "Mr Error", `An error within an error.. Look at that! Reason: ${err}, (only you can see this)`)
         return JSON.stringify(constructedMessage)
     }
@@ -70,7 +70,7 @@ async function botErrorPublicMsg(errorReason) {
         const message = await validateTypeOfOutgoingMsg(constructedMessage)
         return message;
     } catch (err) {
-        console.log(err, "8");
+        //console.log(err, "8");
         const constructedMessage = formatToChatObj("errorMsg", "Mr Error", `An error within an error.. Look at that! Reason: ${err}`)
         return JSON.stringify(constructedMessage)
     }
@@ -91,7 +91,7 @@ async function handleOutgoingDataToClient(validatedData, wsId) {
         const restructureChatObj = formatToChatObj(type, userObj, data, imgData, save)
         return validateTypeOfOutgoingMsg(restructureChatObj);
     } catch (err) {
-        console.log(err, "9");
+        //console.log(err, "9");
         return Promise.reject(err);
     }
 
@@ -110,7 +110,7 @@ async function clientList() {
         const message = await validateTypeOfOutgoingMsg(constructedMessage)
         return message;
     } catch (err) {
-        console.log(err, "10");
+        //console.log(err, "10");
         return Promise.reject(err);
     }
 }
@@ -122,7 +122,7 @@ async function clientSize() {
         const message = await validateTypeOfOutgoingMsg(constructedMessage);
         return message;
     } catch (err) {
-        console.log(err, "11");
+        //console.log(err, "11");
         return Promise.reject(err);
     }
 }

@@ -92,13 +92,13 @@ function getTotalHeightOfElements() {
     const ToolBarRect = offCanvasFooter.getBoundingClientRect();
     const marginBottom = getComputedStyle(offCanvasHeader).marginBottom;
     const marginTop = getComputedStyle(offCanvasFooter).marginTop;
-    // console.log(HeaderRect.height, ToolBarRect.height, parseInt(marginBottom), parseInt(marginTop));
+    // //console.log(HeaderRect.height, ToolBarRect.height, parseInt(marginBottom), parseInt(marginTop));
     return HeaderRect.height + ToolBarRect.height + parseInt(marginBottom) + parseInt(marginTop);
 }
 
 function rescaleCanvas() {
     const totalElementsHeight = getTotalHeightOfElements()
-    console.log(totalElementsHeight);
+    //console.log(totalElementsHeight);
     canvas.height = window.innerHeight - totalElementsHeight;
     canvas.width = window.innerWidth - 2;
 }
@@ -147,14 +147,14 @@ function downloadCanvasImg() {
 }
 
 function setSaveToDatabaseOption() {
-    console.log("current", saveToDatabase);
+    //console.log("current", saveToDatabase);
     if(saveToDatabase) {
         saveToDatabase = false;
-        console.log("setting false", saveToDatabase);
+        //console.log("setting false", saveToDatabase);
         return;
     } 
     saveToDatabase = true;
-    console.log("setting true", saveToDatabase);
+    //console.log("setting true", saveToDatabase);
 }
 
 function uploadCanvasImg() {
@@ -205,7 +205,7 @@ canvasErase.addEventListener('click', () => {
 });
 canvasDownload.addEventListener('click', downloadCanvasImg);
 canvasUpload.addEventListener("click", () => {
-    console.log("lol");
+    //console.log("lol");
     !clientLookingAtBrowserWindow ? clientLookingAtBrowserWindow = true : clientLookingAtBrowserWindow = false;
     !offCanvasIsActive ? offCanvasIsActive = true : offCanvasIsActive = false
     resetNewMessageNotifications();

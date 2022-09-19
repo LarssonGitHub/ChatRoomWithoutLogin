@@ -43,7 +43,7 @@ function fetchGallery() {
                 throw data.err;
             }
         }).catch((err) => {
-            console.log(err, "32");
+            //console.log(err, "32");
             manageErrorAndAppendToPopupBox(err)
         });
 }

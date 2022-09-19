@@ -42,7 +42,7 @@ function formatToChatObj(type, user, data, imgData, save) {
     }
     msgTemplate.time = moment().tz("Europe/Stockholm").format("DD/MM HH:mm:ss");
     msgTemplate.postDate = moment().toISOString();
-    console.log(msgTemplate);
+    //console.log(msgTemplate);
     return msgTemplate;
 }
 
@@ -62,7 +62,7 @@ async function validateTypeOfIncomingMsg(data) {
                 throw "ERROR type problem!";
         }
     } catch (err) {
-        console.log(err, "12");
+        //console.log(err, "12");
         return Promise.reject(err);
     }
 }
@@ -88,7 +88,7 @@ async function validateTypeOfOutgoingMsg(dataObj) {
                 throw "ERROR type problem!";
         }
     } catch (err) {
-        console.log(err, "13");
+        //console.log(err, "13");
         return Promise.reject(err);
     }
 }

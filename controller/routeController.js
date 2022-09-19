@@ -34,7 +34,7 @@ async function renderIndex(req, res, next) {
             res.status(200).render('pages/index');
         });
     } catch (err) {
-        console.log(err, "14");
+        //console.log(err, "14");
         const errMessage = errHasSensitiveInfo(err);
         res.status(404).json({
             err: errMessage,
@@ -64,6 +64,7 @@ function logout(req, res, next) {
 }
 
 async function submitLogin(req, res, next) {
+    console.log("submit login")
     try {
         const {
             userName
@@ -80,7 +81,7 @@ async function submitLogin(req, res, next) {
         }
         throw "Something went wrong on our end when trying to log in";
     } catch (err) {
-        console.log(err, "16");
+        //console.log(err, "16");
         const errMessage = errHasSensitiveInfo(err);
         res.status(404).json({
             err: errMessage,
@@ -99,7 +100,7 @@ async function fetchGallery(req, res, next) {
         }
         throw "Something went wrong on our end when fetching for gallery";
     } catch (err) {
-        console.log(err, "17");
+        //console.log(err, "17");
         const errMessage = errHasSensitiveInfo(err);
         res.status(404).json({
             err: errMessage,
@@ -113,7 +114,7 @@ async function fetchChatHistory(req, res) {
             startIndex
         } = req.params;
         const chatPagination = await getChatPagination(startIndex);
-        console.log("chat pagination", chatPagination);
+        //console.log("chat pagination", chatPagination);
         if (chatPagination || chatPagination.length > 0) {
             res.json({
                 message: chatPagination
@@ -122,7 +123,7 @@ async function fetchChatHistory(req, res) {
         }
         throw "Something went wrong on our end when fetching for chats";
     } catch (err) {
-        console.log(err, "18");
+        //console.log(err, "18");
         const errMessage = errHasSensitiveInfo(err);
         res.status(404).json({
             err: errMessage,

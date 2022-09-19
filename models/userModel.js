@@ -12,7 +12,7 @@ async function resetDatabaseStatus() {
         const updateUsers = await Users.deleteMany({})
         return updateUsers;
     } catch (err) {
-        console.log(err, "22");
+        //console.log(err, "22");
         return Promise.reject(err);
     }
 }
@@ -22,7 +22,7 @@ async function getAllUsers() {
         const arrayOfAllUsers = await Users.find({});
         return arrayOfAllUsers;
     } catch (err) {
-        console.log(err, "23");
+        //console.log(err, "23");
         return Promise.reject(err);
     }
 }
@@ -46,7 +46,7 @@ async function addNewUser(userName) {
         });
         return await newUser.save();
     } catch (err) {
-        console.log(err, "25");
+        //console.log(err, "25");
         return Promise.reject(err);
     }
 }
@@ -62,7 +62,7 @@ async function checkForUser(userName, userPassword) {
         }
         return userExist;
     } catch (err) {
-        console.log(err, "26");
+        //console.log(err, "26");
         return Promise.reject(err);
     }
 }
@@ -77,7 +77,7 @@ async function getUser(wsID) {
         }
         return userObject;
     } catch (err) {
-        console.log(err, "27");
+        //console.log(err, "27");
         return Promise.reject(err);
     }
 }
@@ -97,7 +97,7 @@ async function setIdAndStatusForWebsocket(wsID) {
         }
         return updateUser;
     } catch (err) {
-        console.log(err, "28");
+        //console.log(err, "28");
         return Promise.reject("userDidntUpdate");
     }
 }
@@ -109,13 +109,13 @@ async function removeIdAndStatusForWebsocket(wsId) {
             throw "something went wrong when searching for user id!";
         }
         const deleteUser = await Users.findByIdAndDelete(currentUserObject[0]._id).lean();
-        console.log(deleteUser)
+        //console.log(deleteUser)
         if (deleteUser === null) {
             throw "update user is undefined or null";
         }
         return deleteUser;
     } catch (err) {
-        console.log(err, "29");
+        //console.log(err, "29");
         return Promise.reject("One user wasn't correctly logged out so the list of users online may not bee accurate. However, the app should still work, so chat away!");
     }
 }
@@ -130,7 +130,7 @@ async function getUsersOnline() {
         }
         return arrayOfUsersOnline;
     } catch (err) {
-        console.log(err, "30");
+        //console.log(err, "30");
         return Promise.reject(err);
     }
 }

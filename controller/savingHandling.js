@@ -10,7 +10,7 @@ async function prepareChatSaving(dataObj) {
         }
         return couldSaveChat;
     } catch (err) {
-        console.log(err, "14");
+        //console.log(err, "14");
         return Promise.reject(err);
     }
 }

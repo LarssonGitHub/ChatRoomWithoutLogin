@@ -72,6 +72,7 @@ app.set('view engine', 'ejs');
 
 wss.on('connection', async (ws, req) => {
     try {
+        console.log("hi")
         console.log(`Client connected from IP ${ws._socket.remoteAddress}`);
         ws.id = uuidv4();
         console.log("new user set as online!", await setIdAndStatusForWebsocket(ws.id));
@@ -87,7 +88,7 @@ wss.on('connection', async (ws, req) => {
     ws.on("close", async () => {
         try {
             broadcast(await botGoodbyeMsg(ws.id))
-            console.log("old user DELETED  as offline!", await removeIdAndStatusForWebsocket(ws.id));
+            console.log("old user DELETED!", await removeIdAndStatusForWebsocket(ws.id));
             broadcast(await clientSize())
             broadcast(await clientList(ws.id))
         } catch (err) {
@@ -140,5 +141,5 @@ function broadcast(data) {
 }
 
 server.listen(process.env.PORT || PORT, () => {
-    console.log(`Server started on`, PORT);
+    //console.log(`Server started on`, PORT);
 });

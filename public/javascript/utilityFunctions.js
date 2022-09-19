@@ -12,9 +12,9 @@ function hideElement(element) {
 
 // Unused function...
 // function disableElement(element) {
-//     console.log(element);
+//     //console.log(element);
 //     const elementIsDisabled = element.disabled;
-//     console.log(elementIsDisabled);
+//     //console.log(elementIsDisabled);
 //     if (elementIsDisabled) {
 //         element.disabled = false;
 //         return;
