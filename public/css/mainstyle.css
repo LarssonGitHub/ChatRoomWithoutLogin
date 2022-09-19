@@ -1,0 +1,343 @@
+:root {
+    --active-color: red;
+}
+
+* {
+    box-sizing: border-box;
+}
+/* Why bootstrap? */
+p {
+    margin-top: 16px;
+}
+
+canvas {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+h1 {
+    text-align: center;
+}
+
+.fromContainer {
+    width: 100%;
+    max-width: 600px;
+    padding: 1rem 2rem;
+}
+
+#errorContainer {
+    /* position: fixed; */
+    max-width: 400px;
+    width: 100%;
+}
+
+#errorContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    color: #D8000C;
+    background-color: #FFBABA;
+    padding: 0.2rem 0.5rem;
+    gap: 0.5rem;
+}
+
+#errorText {
+    margin: 0;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 70px;
+}
+
+#myCanvas {
+    object-fit: contain;
+    border: 1px solid #000000;
+    cursor: pointer;
+    background-color: white;
+}
+
+.tempGallery {
+    height: 400px;
+    overflow: scroll;
+}
+
+
+.activeBtn {
+    color: var(--active-color);
+}
+
+#toolbar {
+    font-size: 2rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.botChatContainer {
+    background-color: darkgray;
+}
+
+.clientChatContainer {
+    background-color: lightblue;
+}
+
+.clientMsg {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    margin: 0.5rem 0;
+}
+
+#chatContainer {
+    height: 50vh;
+    overflow: scroll;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+#chatContainer::-webkit-scrollbar {
+    display: none;
+}
+
+#chatSection {
+    margin: 0.5rem 1rem 0.5rem 1rem;
+}
+
+#textAreaContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+#chatTextarea {
+    width: 100%;
+}
+
+#sendToWebserverBtn {
+    margin-left: 0.2rem;
+    padding: 0.5rem;
+}
+
+#toolbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem 0.5rem;
+}
+
+#content-wrap {
+    padding-bottom: 2.5rem;
+}
+
+#msgImgInputRemove {
+    text-align: end;
+}
+
+.chatTemplateContainer {
+    margin: 0.2rem 0;
+    padding: 0.5rem 1rem;
+}
+
+.off-canvas {
+    height: 0;
+    width: 100%;
+    position: fixed;
+    z-index: 999999999;
+    top: 0;
+    right: 0;
+    background-color: lightgrey;
+    overflow-y: hidden; 
+    transition: 0.5s;
+}
+
+
+.displayOfCanvas {
+    height: 100% !important;
+}
+
+#gallerySection {
+    overflow-y: auto; 
+}
+
+#gallerySection::-webkit-scrollbar {
+    display: none;
+}
+
+.smallHeaderText {
+    width: 100%;
+}
+
+.closeSection {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.smallHeadingInfo {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.chatHeading {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0.5rem 0;
+}
+
+.offCanvasHeader {
+    position: sticky;
+    top: 0;
+    right: 0;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+    background-color: darkgray;
+}
+
+.offCanvasFooter {
+    margin-top: 0.5rem;
+}
+
+.chatContent {
+    margin: 0;
+}
+
+.chatContent img {
+    width: 100%;
+    max-width: 400px;
+}
+
+.closeSectionMark {
+    font-size: 2rem;
+    font-weight: bolder;
+    color: red;
+    cursor: pointer;
+}
+
+.closeSectionMark:hover {
+    color: white;
+}
+
+img {
+    background-color: white;
+}
+
+#galleryList {
+    padding: 0;
+    margin: 0 1rem;
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+#galleryList img {
+    width: 100%;
+}
+
+#ListOfClients {
+    margin: 0 1rem;
+}
+
+#canvasToolBar {
+    background-color: darkgray;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#canvasLowerBar,
+#canvasUpperBar {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+#canvasLowerBar div,
+#canvasUpperBar div {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 0;
+    padding: 0.2rem 0.5rem;
+}
+
+i {
+    cursor: pointer;
+}
+
+#canvasBrush {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    gap: 0.7rem;
+}
+
+#canvasBrush label {
+    margin: 0;
+}
+
+#canvasBrush [type=radio] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+#canvasBrush [type=radio]:checked+i {
+    color: var(--active-color);
+}
+
+.canvasUpperBarText {
+    font-size: 0.7rem;
+    font-weight: bold;
+    display: block;
+}
+
+#saveToDatabaseBtn  {
+  white-space: nowrap;
+}
+
+/* TODO set media queries */
+@media only screen and (min-width: 393px) { 
+    #galleryList {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
+
+@media only screen and (min-width: 768px) {
+    #galleryList {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+}
+
+@media only screen and (min-width: 1201px) {
+    #galleryList {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+}
