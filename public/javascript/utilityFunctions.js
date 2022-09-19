@@ -31,8 +31,10 @@ function activeElement(element) {
 }
 
 function manageErrorAndAppendToPopupBox(err) {
+    if (errorContainer.classList.contains('hidden')) {
+        errorContainer.classList.toggle("hidden")
+    }
     errorText.textContent = err;
-    errorContainer.classList.toggle("hidden")
 }
 
 function closeErrorPopupBox() {

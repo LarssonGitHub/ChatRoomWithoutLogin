@@ -30,7 +30,7 @@ async function getCollectionOfGallery() {
     try {
         const listOfImages = await Chat.find({ imgData: { "$regex": "data:image/png"} });
         if (!listOfImages || listOfImages.length === 0) {
-            throw "There sadly isn't any pictures posted online yet D:";
+            throw "There sadly isn't any pictures posted online yet.";
         }
         return listOfImages;
     } catch (err) {
@@ -43,7 +43,7 @@ async function getChatPagination(startIndex) {
     try {
         const chatResults = await Chat.find({}).sort({postDate: -1}).limit(15).skip(Number(startIndex));
         if (!chatResults || chatResults.length === 0) {
-            throw "There sadly isn't any posts online yet D:";
+            throw "There sadly isn't any posts online yet.";
         }
         return chatResults;
     } catch (err) {
