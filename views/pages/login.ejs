@@ -20,16 +20,21 @@
             <i id="closeErrorContainer" class="fa fa-window-close closeSectionMark" aria-hidden="true"></i>
         </div>
     </div>
-
-    <h1>Please, pick a name, any name!</h1>
-    <form id="loginForm" class="fromContainer" action="/login" method="post">
-        <div class="form-group">
-            <label for="userName">Username</label>
-            <input type="text" class="form-control" name="userName" id="userName" required>
-        </div>
-        <button type="submit">Let me chat!</button>
-    </form>
-
+    <div id="loginWrapper">
+    <div id="loginContainer">
+        <h1>Welcome to Chat & Draw!</h1>
+        <form id="loginForm" class="fromContainer" action="/login" method="post">
+            <div class="form-group">
+                <label for="userName">Pick a nickname and let's scribble!</label>
+                <input type="text" class="form-control" name="userName" id="userName" required>
+            </div>
+            <div class="buttonContainer">
+                <button type="submit">Let me chat already!</button>
+            </div>
+        </form>
+    </div>
+    </div>
+   
     <script src="javascript/utilityFunctions.js"></script>
     <script src="javascript/login.js"></script>
 
