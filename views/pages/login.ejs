@@ -21,21 +21,13 @@
         </div>
     </div>
 
-    <h1>Please, log in to chat!</h1>
+    <h1>Please, pick a name, any name!</h1>
     <form id="loginForm" class="fromContainer" action="/login" method="post">
         <div class="form-group">
             <label for="userName">Username</label>
             <input type="text" class="form-control" name="userName" id="userName" required>
-            <small id="emailHelp" class="form-text text-muted">If you have forgotten your username, you will never get
-                it back!</small>
-        </div>
-        <div class="form-group">
-            <label for="userPassword">Your password</label>
-            <input type="password" class="form-control" name="userPassword" id="userPassword" autocomplete="on"
-                required>
         </div>
         <button type="submit">Let me chat!</button>
-        <p>Not a user? <a href="/register">Register now!</a></p>
     </form>
 
     <script src="javascript/utilityFunctions.js"></script>
