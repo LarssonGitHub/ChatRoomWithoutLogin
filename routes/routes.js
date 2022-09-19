@@ -15,8 +15,6 @@ import {
     renderIndex,
     renderLogin,
     submitLogin,
-    renderRegistrar,
-    submitRegistrar,
     logout,
     fetchGallery,
     fetchChatHistory
@@ -49,15 +47,11 @@ router.get("/", checkUserAccess, renderIndex);
 
 router.get('/logout', checkUserAccess, logout);
 
-router.get("/login/", renderLogin);
+router.get("/login", renderLogin);
 
-router.post("/login/", submitLogin);
+router.post("/login", submitLogin);
 
-router.get("/register/", renderRegistrar);
-
-router.post("/register/", submitRegistrar);
-
-router.get("/gallery/", checkUserAccess, fetchGallery);
+router.get("/gallery", checkUserAccess, fetchGallery);
 
 router.get("/chatHistory/:startIndex", checkUserAccess, fetchChatHistory);
 

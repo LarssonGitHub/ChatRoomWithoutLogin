@@ -1,8 +1,4 @@
 import {
-    removeIdAndStatusForWebsocket
-} from "../models/userModel.js";
-
-import {
     errHasSensitiveInfo
 } from "./errorHandling.js"
 
@@ -13,7 +9,6 @@ import {
 
 import {
     registerNewUser,
-    loginUser,
     usersInTempMemory
 } from "../controller/authentication.js";
 
@@ -89,34 +84,6 @@ async function submitLogin(req, res, next) {
     }
 }
 
-function renderRegistrar(req, res, next) {
-    res.render('pages/register');
-}
-
-async function submitRegistrar(req, res, next) {
-    try {
-        const {
-            userName,
-            userPassword
-        } = req.body;
-        const userWasRegister = await registerNewUser(userName, userPassword);
-        if (userWasRegister) {
-            res.status(200).json({
-                redirectTo: '/login',
-                message: "new user added, log in!"
-            })
-            return;
-        }
-        throw "Something went wrong on our end when registering a new user";
-    } catch (err) {
-        console.log(err, "16");
-        const errMessage = errHasSensitiveInfo(err);
-        res.status(404).json({
-            err: errMessage,
-        })
-    }
-}
-
 async function fetchGallery(req, res, next) {
     try {
         const collectionExist = await getCollectionOfGallery();
@@ -163,8 +130,6 @@ export {
     renderIndex,
     renderLogin,
     submitLogin,
-    renderRegistrar,
-    submitRegistrar,
     logout,
     fetchGallery,
     fetchChatHistory,
