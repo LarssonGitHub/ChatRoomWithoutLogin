@@ -2,8 +2,9 @@
     --active-color: red;
 }
 
+
 * {
-    font-family: Lucida Console;
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
     box-sizing: border-box;
     /* letter-spacing: 0.5rem;
     line-height: 0.7rem; */
@@ -88,7 +89,7 @@ background-color: #c0dbf6 !important;
 #errorContainer {
     bottom: 2rem;
     right: 2rem;
-    border-radius: 3px;
+    border-radius: 1px;
     position: fixed;
     max-width: 400px;
     width: 100%;
@@ -222,17 +223,18 @@ body {
 
 #chatTextarea {
     width: 100%;
-    border-radius: 3px;
+    border-radius: 6px 0 0 6px;
     border: none;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 7px 0px;
     padding: 0.5rem 1rem;
 }
 
 #sendToWebserverBtn {
+    border-radius: 0 6px 6px 0;
     cursor: pointer;
     border: none;
-    background-color: #F7B832;
-    margin-left: 0.2rem;
+    /* background-color: #F7B832; */
+    /* margin-left: 0.2rem; */
     padding: 0.5rem 2rem;
     font-size: 1.1rem;
 }
@@ -267,7 +269,7 @@ body {
     margin: 0.2rem 0;
     padding: 0.8rem 1.5rem;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 7px 0px;
-    border-radius: 3px;
+    border-radius: 1px;
 }
 
 .off-canvas {
@@ -326,7 +328,7 @@ body {
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-    margin: 0 0 0.8rem 0;
+    margin: 0 0 0.7rem 0;
 }
 
 .offCanvasHeader {
@@ -470,7 +472,7 @@ i {
 button {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 7px 0px;
     border: none;
-    border-radius: 3px;
+    border-radius: 6px;
     cursor: pointer;
     padding: 0.5rem 1.5rem;
     background-color: #F7B832;
