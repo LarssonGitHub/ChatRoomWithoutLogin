@@ -99,7 +99,7 @@ wss.on('connection', async (ws, req) => {
     ws.on("message", async (incomingData) => {
         try {
             const validatedData = await validateTypeOfIncomingMsg(incomingData);
-            broadcast(await handleOutgoingDataToClient(validatedData, ws.id));
+            broadcastButExclude(await handleOutgoingDataToClient(validatedData, ws.id), ws.id);
         } catch (err) {
             console.log(err, "2");
             try {
@@ -112,10 +112,11 @@ wss.on('connection', async (ws, req) => {
     })
 });
 
-function broadcastButExclude(data, someClient) {
+function broadcastButExclude(data, specificUserId) {
+
     wss.clients.forEach(function each(client) {
         if (client.readyState === WebSocket.OPEN) {
-            if (client !== someClient) {
+            if (client.id !== specificUserId) {
                 client.send(data);
             }
         }
@@ -141,5 +142,5 @@ function broadcast(data) {
 }
 
 server.listen(process.env.PORT || PORT, () => {
-    //console.log(`Server started on`, PORT);
+    console.log(`Server started on`, PORT);
 });
