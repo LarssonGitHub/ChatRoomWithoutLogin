@@ -27,7 +27,7 @@ async function getUserName(wsId) {
 async function botWelcomeMsg(wsId) {
     try {
         const userObj = await getUserName(wsId);
-        const constructedMessage = formatToChatObj("botMsg", "Mr Bot", `${userObj} has joined!`)
+        const constructedMessage = formatToChatObj("botMsg", "Mr Bot greeter", `${userObj} has joined!`)
         const message = await validateTypeOfOutgoingMsg(constructedMessage);
         return message;
     } catch (err) {
@@ -39,7 +39,7 @@ async function botWelcomeMsg(wsId) {
 async function botGoodbyeMsg(wsId) {
     try {
         const userObj = await getUserName(wsId);
-        const constructedMessage = formatToChatObj("botMsg", "Mr Bot", `${userObj} has left the chat!`)
+        const constructedMessage = formatToChatObj("botMsg", "Mr Bot greeter", `${userObj} has left the chat!`)
         const message = await validateTypeOfOutgoingMsg(constructedMessage)
         return message;
     } catch (err) {
@@ -60,7 +60,7 @@ async function botErrorPrivateMsg(wsId, errorReason) {
         const constructedMessage = formatToChatObj("errorMsg", "Mr Error", `An error within an error.. Look at that! Reason: ${err}, (only you can see this)`)
         return JSON.stringify(constructedMessage)
     }
-    }
+}
 
 
 async function botErrorPublicMsg(errorReason) {
@@ -79,7 +79,7 @@ async function botErrorPublicMsg(errorReason) {
 
 // For the client
 
-async function handleOutgoingDataToClient(validatedData, wsId) {
+async function handleOutgoingDataToClient(validatedData, wsId, clientsOwnPost) {
     try {
         const {
             type,
@@ -87,19 +87,19 @@ async function handleOutgoingDataToClient(validatedData, wsId) {
             imgData,
             save
         } = validatedData;
+        // Condition to change type so that it's easy for the client to tell its own post from others
         const userObj = await getUserName(wsId);
-        const restructureChatObj = formatToChatObj(type, userObj, data, imgData, save)
+        const restructureChatObj = clientsOwnPost ? formatToChatObj("clientsPost", userObj, data, imgData, save) : formatToChatObj(type, userObj, data, imgData, save);
         return validateTypeOfOutgoingMsg(restructureChatObj);
     } catch (err) {
         //console.log(err, "9");
         return Promise.reject(err);
     }
-
 }
 
 // For statuses
 function mapUsernames(arrayOfUsers) {
-        return arrayOfUsers.map(user => user.userName);
+    return arrayOfUsers.map(user => user.userName);
 }
 
 async function clientList() {

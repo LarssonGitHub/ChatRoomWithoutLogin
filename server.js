@@ -81,7 +81,7 @@ wss.on('connection', async (ws, req) => {
         broadcast(await clientList(ws.id))
     } catch (err) {
         if (err === "userDidntUpdate") {
-        ws.terminate("User has been terminated because there is a major error, and as to not break the server, user is removed", 500);
+            ws.terminate("User has been terminated because there is a major error, and as to not break the server, user is removed", 500);
         }
         broadcast(await botErrorPublicMsg(err));
     }
@@ -99,6 +99,8 @@ wss.on('connection', async (ws, req) => {
     ws.on("message", async (incomingData) => {
         try {
             const validatedData = await validateTypeOfIncomingMsg(incomingData);
+            // Quick but not good way to difference between the client and everyone else.
+            broadcastToSingleClient(await handleOutgoingDataToClient(validatedData, ws.id, true), ws.id);
             broadcastButExclude(await handleOutgoingDataToClient(validatedData, ws.id), ws.id);
         } catch (err) {
             console.log(err, "2");

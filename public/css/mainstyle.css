@@ -15,13 +15,16 @@ p {
     margin-top: 0.5rem;
 }
 
-b, strong {
+b,
+strong {
     font-weight: bolder;
     font-weight: 500;
 }
- .clientName {
+
+.clientName {
     font-size: 1.1rem;
- }
+}
+
 canvas {
     display: block;
     margin: 0;
@@ -47,10 +50,13 @@ label {
     padding-bottom: 0.5rem;
 }
 
-header, #toolbar, #canvasToolBar {
-/* background-color: #194c7e !important; */
-background-color: #c0dbf6 !important;
+header,
+#toolbar,
+#canvasToolBar {
+    /* background-color: #194c7e !important; */
+    background-color: #c0dbf6 !important;
 }
+
 #loginWrapper {
     display: flex;
     justify-content: center;
@@ -97,9 +103,9 @@ background-color: #c0dbf6 !important;
     background-color: #FFBABA;
     padding: 0.9rem 1.3rem;
 }
-#imgImgContainer {
-    
-}
+
+#imgImgContainer {}
+
 #errorContent {
     display: flex;
     flex-direction: row;
@@ -159,20 +165,34 @@ body {
     display: none;
 }
 
-.botChatContainer {
+/* Messages by mr bott */
+.botMsg {
     background-color: darkgray;
 }
 
-#loadPreChatBtn, #loginBtn {
+.errorMsg {
+    background-color: red;
+}
+
+.chatMsg,
+.imageMsg {
+    background-color: lightblue;
+}
+
+.clientsPost {
+    background-color: blue;
+}
+
+
+#loadPreChatBtn,
+#loginBtn {
     margin-bottom: 0.4rem;
     width: 100%;
     /* max-width: 250px; */
 }
+
 .clientImg {
     margin: 0.5rem 0;
-}
-.clientChatContainer {
-    background-color: lightblue;
 }
 
 .clientMsg {
@@ -258,13 +278,16 @@ body {
     text-decoration: underline;
     font-weight: 500;
 }
+
 #clientsOnlineConatiner {
     padding: 0 1.3rem 0.8rem 1.3rem;
 }
+
 #msgImgContainer {
     font-size: 0.8rem;
     margin: 0 0 0.5rem 0;
 }
+
 .chatTemplateContainer {
     margin: 0.2rem 0;
     padding: 0.8rem 1.5rem;
@@ -492,7 +515,7 @@ button {
 @media only screen and (min-width: 393px) {
     #galleryList {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }    
+    }
 }
 
 @media only screen and (min-width: 768px) {

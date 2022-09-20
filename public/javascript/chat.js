@@ -44,7 +44,6 @@ function playSound() {
 //  Not implemented yet
 function updateFavicon(incomingNewMsg) {
     if (incomingNewMsg) {
-
         //console.log("favicon with dot added! Or it should");
         return;
     }
@@ -82,18 +81,19 @@ function manageChatTemplate({
     imgData
 }) {
     let getTemplateHTML = document.importNode(chatTemplate.content, true)
-    getTemplateHTML.querySelector(".chatTemplateContainer").classList.add(type === "botMsg" || type === "errorMsg" ? "botChatContainer" : "clientChatContainer");
+    // Css decides the color and layout for each post depending on what type
+    getTemplateHTML.querySelector(".chatTemplateContainer").classList.add(type);
     getTemplateHTML.querySelector(".clientName").textContent = user || "ERROR";
     getTemplateHTML.querySelector(".clientMsg").textContent = data || getTemplateHTML.querySelector(".clientMsg").classList.toggle("hidden")
     getTemplateHTML.querySelector(".clientTime").textContent = time || "ERROR";
-    if (type === "imageMsg" && imgData.includes("data:image/png;")) {
+    if (imgData.includes("data:image/png;")) {
         getTemplateHTML.querySelector(".clientImg").src = imgData;
+        getTemplateHTML.querySelector(".clientImg").alt = "And image posted by a user";
         getTemplateHTML.querySelector(".clientImg").classList.toggle("hidden")
     }
-    if (type === "imageMsg" && !imgData.includes("data:image/png;")) {
+    if (!imgData.includes("data:image/png;")) {
         getTemplateHTML.querySelector(".clientImg").src = "#####";
-        getTemplateHTML.querySelector(".clientImg").alt = imgData;
-        getTemplateHTML.querySelector(".clientImg").classList.toggle("hidden")
+        getTemplateHTML.querySelector(".clientImg").alt = "No image attached to tag";
     }
     return getTemplateHTML;
 }
@@ -152,7 +152,7 @@ function checkIfImgOrRegularChatObject(chatValue) {
     if (binaryCanvasValue) {
         return constructMsgObject("imageMsg", tempClientUserName, chatValue, binaryCanvasValue, saveToDatabase);
     } else {
-        return constructMsgObject("chatMsg", tempClientUserName, chatValue);
+        return constructMsgObject("chatMsg", tempClientUserName, chatValue, false);
     }
 }
 

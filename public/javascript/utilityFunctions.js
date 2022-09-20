@@ -10,18 +10,6 @@ function hideElement(element) {
     element.classList.toggle("hidden");
 }
 
-// Unused function...
-// function disableElement(element) {
-//     //console.log(element);
-//     const elementIsDisabled = element.disabled;
-//     //console.log(elementIsDisabled);
-//     if (elementIsDisabled) {
-//         element.disabled = false;
-//         return;
-//     }
-//     element.disabled = true;;
-// }
-
 function displayOfCanvas(element) {
     element.classList.toggle("displayOfCanvas");
 }
@@ -80,6 +68,9 @@ function constructMsgObject(type, user, chatData, binaryCanvasValue, saveToDatab
         msgTemplate.imgData = binaryCanvasValue;
         removeImgFromTypingContainer()
         cleanAllCanvas();
+    }
+    if (binaryCanvasValue === false) {
+        msgTemplate.imgData = "No image to save or send to database";
     }
     if (saveToDatabase) {
         msgTemplate.save = true;

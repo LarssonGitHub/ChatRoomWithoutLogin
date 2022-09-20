@@ -24,6 +24,9 @@ function sortTypeOfReceivedMsg(msg) {
         case "chatMsg":
             displayChatMsg(msg);
             break;
+        case "clientsPost":
+            displayChatMsg(msg);
+            break;
         case "botMsg":
             displayChatMsg(msg);
             break;
@@ -44,19 +47,18 @@ function sortTypeOfReceivedMsg(msg) {
 }
 
 function sendMsgToWebsocket(data) {
-    //console.log(data, "sending data to websocket");
     const stringifiedData = stringifyJson(data)
     websocket.send(stringifiedData);
 }
 
 websocket.addEventListener("message", (event) => {
-    //console.log(event.data);
+    // console.log(event.data);
     const parsedData = parseJson(event.data);
-    
+
     // easter egg check!
     // easterEggIsActivated(parsedData.data)
     if (!clientLookingAtBrowserWindow) {
-    notifyNewMessage()
+        notifyNewMessage()
     }
     sortTypeOfReceivedMsg(parsedData)
 })
