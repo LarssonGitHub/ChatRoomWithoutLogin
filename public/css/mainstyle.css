@@ -1,5 +1,6 @@
 :root {
-    --active-color: red;
+    --active-color: #6ca0d3;
+    ;
 }
 
 
@@ -10,9 +11,35 @@
     line-height: 0.7rem; */
 }
 
+a,
+#loadPreChatBtn {
+    color: #02172c;
+    font-weight: 500;
+    transition: 0.3s;
+    /* color: #021c36; */
+}
+
+a:visited {
+    color: #02172c;
+}
+
 /* Why bootstrap? */
 p {
-    margin-top: 0.5rem;
+    margin-top: 0.3rem;
+}
+
+p,
+b,
+strong,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #02172c;
+    transition: 0.3s;
+
 }
 
 b,
@@ -36,25 +63,28 @@ h1 {
     text-align: center;
     font-weight: 900;
     font-size: 1.7rem;
+    margin-bottom: 1.6rem;
 }
 
 h2,
 h3,
 h4,
 h5 {
+    margin-bottom: 0.75rem;
     font-weight: 700 !important;
     font-size: 1.4rem;
 }
 
-label {
-    padding-bottom: 0.5rem;
+.form-controll {
+    padding: 0;
 }
 
 header,
 #toolbar,
 #canvasToolBar {
     /* background-color: #194c7e !important; */
-    background-color: #c0dbf6 !important;
+    background-color: #1c5d9c  !important;
+    /* box-shadow: rgb(100 100 111 / 30%) 0px 10px 12px -4px; */
 }
 
 #loginWrapper {
@@ -81,26 +111,26 @@ header,
 }
 
 .buttonContainer>button {
-    margin-top: 1rem;
+    margin-top: 1.3rem;
 }
 
-.fromContainer {
+.loginContainer {
     margin: 0 auto;
     background-color: blue;
     width: 100%;
     max-width: 400px;
-    padding: 2rem 1rem 3rem 1rem;
+    padding: 1rem 0.5rem 1rem 0.5rem;
 }
 
 #errorContainer {
     bottom: 2rem;
     right: 2rem;
-    border-radius: 2px;
+    border-radius: 7px;
     position: fixed;
     max-width: 800px;
     width: 80%;
     z-index: 9999999999;
-    background-color: #FFBABA;
+    background-color: #f18282;
     padding: 0.9rem 1.3rem;
 }
 
@@ -122,17 +152,16 @@ header,
 body,
 html {
     height: 100%;
-    background-color: #e9e9e9;
 }
 
 body {
     position: relative;
+    background-color: #bfdbff;
 }
 
 .clientTime {
     font-size: 0.8rem;
-    font-weight: 200;
-    color: pink;
+    font-weight: 500;
 }
 
 #myCanvas {
@@ -148,17 +177,21 @@ body {
     overflow: scroll;
 }
 
+#canvasErase,
+#canvasDownload,
+#canvasUpload,
+#cleanCanvas,
+#saveToDatabaseBtn {
+    cursor: pointer;
+    transition: 0.3s;
+}
 
-.activeBtn {
-    color: #D8000C;
+.activeBtn span {
+    color: #e4e5ff
 }
 
 .activeBtn i {
-    color: #D8000C;
-}
-
-#toolbar {
-    font-size: 1.6rem;
+    color: #e4e5ff
 }
 
 .hidden {
@@ -167,28 +200,46 @@ body {
 
 /* Messages by mr bott */
 .botMsg {
-    background-color: darkgray;
+    background-color: #03487c;
+    border-radius: 1px 10px 10px 1px;
+    border-left: solid 3px #02172c;
+    margin-right: 10%;
 }
 
 .errorMsg {
-    background-color: red;
+    background-color:     #f18282;;
+    border-radius: 1px 10px 10px 1px;
+    border-left: solid 3px #02172c;
+    margin-right: 10%;
+    color: #D8000C;
 }
 
 .chatMsg,
 .imageMsg {
-    background-color: lightblue;
+    background-color: #7dafd5;
+    margin-right: 10%;
+    border-radius: 1px 10px 10px 1px;
+    border-left: solid 3px #02172c;
 }
 
 .clientsPost {
-    background-color: blue;
+    background-color: #dff3f8 ;
+    margin-left: 10%;
+    border-radius: 10px 1px 1px 10px;
+    border-right: solid 3px #02172c;
 }
 
-
-#loadPreChatBtn,
 #loginBtn {
-    margin-bottom: 0.4rem;
+    /* margin-bottom: 0.4rem; */
     width: 100%;
-    /* max-width: 250px; */
+}
+
+#loadPreChatBtn {
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 0.4rem;
+    padding: 0.5rem 1.5rem;
 }
 
 .clientImg {
@@ -198,7 +249,7 @@ body {
 .clientMsg {
     white-space: pre-wrap;
     overflow-wrap: break-word;
-    margin: 0.5rem 0;
+    margin: 0.3rem 0;
 }
 
 #chatContainer {
@@ -245,7 +296,7 @@ body {
     width: 100%;
     border-radius: 6px 0 0 6px;
     border: none;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 7px 0px;
+    /* box-shadow: rgb(100 100 111 / 30%) 0px 14px 30px -4px; */
     padding: 0.5rem 1rem;
 }
 
@@ -260,11 +311,17 @@ body {
 }
 
 #toolbar {
+    font-size: 1.6rem;
     position: fixed;
     bottom: 0;
     width: 100%;
     padding: 1rem 0.5rem;
 }
+
+#toolbar i {
+    transition: 0.3s;
+}
+
 
 #content-wrap {
     height: 100%;
@@ -272,11 +329,12 @@ body {
 
 #msgImgInputRemove {
     text-align: end;
-    color: red;
+    color: #bb1b1b;
     /* margin-left: 0.5rem; */
     cursor: pointer;
     text-decoration: underline;
     font-weight: 500;
+    transition: 0.3s;
 }
 
 #clientsOnlineConatiner {
@@ -284,15 +342,16 @@ body {
 }
 
 #msgImgContainer {
-    font-size: 0.8rem;
-    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    margin: 0 0 1.1rem 0;
+    font-weight: 500;
 }
 
 .chatTemplateContainer {
-    margin: 0.2rem 0;
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
     padding: 0.8rem 1.5rem;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 7px 0px;
-    border-radius: 2px;
+    /* box-shadow: rgba(0, 0, 0, 0.3) 0px 6px 20px -4px; */
 }
 
 .off-canvas {
@@ -302,7 +361,7 @@ body {
     z-index: 999999999;
     top: 0;
     right: 0;
-    background-color: lightgrey;
+    background-color: #1c5fa7;
     overflow-y: hidden;
     transition: 0.5s;
 }
@@ -328,7 +387,6 @@ body {
     width: 100%;
     font-size: 0.8rem;
     font-weight: 500;
-    color: #4782ba;
 }
 
 .closeSection {
@@ -360,7 +418,10 @@ body {
     right: 0;
     padding: 0.8rem 1.3rem;
     margin-bottom: 1rem;
-    background-color: darkgray;
+}
+
+.offCanvasHeader h3 {
+    margin: 0.8rem 0;
 }
 
 .offCanvasFooter {
@@ -377,19 +438,16 @@ body {
 }
 
 .closeGallerySection {
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 7px 0px;
+    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 7px 0px; */
 }
 
 .closeSectionMark {
     font-size: 1.5rem;
     font-weight: bolder;
-    color: red;
+    color: #bb1b1b;
     cursor: pointer;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 7px 0px;
-}
-
-.closeSectionMark:hover {
-    color: white;
+    transition: 0.3s;
+    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 7px 0px; */
 }
 
 img {
@@ -449,7 +507,7 @@ img {
 }
 
 i {
-    color: #001d3a;
+    /* color: #021c36; */
     cursor: pointer;
     font-size: 1.5rem;
 }
@@ -485,15 +543,8 @@ i {
     display: block;
 }
 
-.navbar-toggler {
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 7px 0px;
-}
-
-/* header {
-    margin-bottom: 1rem;
-} */
 button {
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 7px 0px;
+    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 7px 0px; */
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -501,12 +552,17 @@ button {
     background-color: #F7B832;
     font-weight: 500;
     font-size: 0.9rem;
+    transition: 0.3s;
 }
 
 .navbar-toggler-icon {
     background-color: #F7B832;
 }
 
+.navbar h2, h3, h4 {
+    align-items: center;
+    margin: 0.8rem 0;
+}
 #saveToDatabaseBtn {
     white-space: nowrap;
 }
@@ -527,5 +583,49 @@ button {
 @media only screen and (min-width: 1201px) {
     #galleryList {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+/* Used to remove hover on phone */
+/* @media (hover: hover) and (pointer: fine) {
+    a:hover {
+        color: red;
+    }
+} */
+
+@media (hover: hover) {
+
+    #canvasErase:hover,
+    #canvasDownload:hover,
+    #canvasUpload:hover,
+    #cleanCanvas:hover,
+    #saveToDatabaseBtn:hover {
+        transition: 0.3s;
+        color: #6ca0d3;
+    }
+
+    #toolbar i:hover {
+        transition: 0.3s;
+        color: #0d3c6b;
+    }
+
+    #loadPreChatBtn:hover b,
+    a:hover {
+        transition: 0.3s;
+        color: #0d3c6b;
+    }
+
+    .closeSectionMark:hover {
+        color: #e4e5ff;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        transition: 0.3s;
+        background-color: #f0a400;
+    }
+    #msgImgInputRemove:hover {
+        color: #e4e5ff;
+        transition: 0.3s;
     }
 }

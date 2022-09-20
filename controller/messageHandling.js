@@ -27,7 +27,7 @@ async function getUserName(wsId) {
 async function botWelcomeMsg(wsId) {
     try {
         const userObj = await getUserName(wsId);
-        const constructedMessage = formatToChatObj("botMsg", "Mr Bot greeter", `${userObj} has joined!`)
+        const constructedMessage = formatToChatObj("botMsg", "Mr Announcer", `${userObj} has joined, say hi!`)
         const message = await validateTypeOfOutgoingMsg(constructedMessage);
         return message;
     } catch (err) {
@@ -39,7 +39,7 @@ async function botWelcomeMsg(wsId) {
 async function botGoodbyeMsg(wsId) {
     try {
         const userObj = await getUserName(wsId);
-        const constructedMessage = formatToChatObj("botMsg", "Mr Bot greeter", `${userObj} has left the chat!`)
+        const constructedMessage = formatToChatObj("botMsg", "Mr Announcer", `${userObj} has left the chat!`)
         const message = await validateTypeOfOutgoingMsg(constructedMessage)
         return message;
     } catch (err) {
