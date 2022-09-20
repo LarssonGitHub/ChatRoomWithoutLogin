@@ -72,7 +72,6 @@ app.set('view engine', 'ejs');
 
 wss.on('connection', async (ws, req) => {
     try {
-        console.log("hi")
         console.log(`Client connected from IP ${ws._socket.remoteAddress}`);
         ws.id = uuidv4();
         console.log("new user set as online!", await setIdAndStatusForWebsocket(ws.id));
@@ -125,6 +124,14 @@ function broadcastButExclude(data, specificUserId) {
     });
 }
 
+// Remove when heroku stops closing my websocket
+// setInterval(() => {
+//     wss.clients.forEach((client) => {
+//         console.log("I clocked to not shut down")
+//       client.send(true);
+//     });
+//   }, 20000);
+
 function broadcastToSingleClient(data, specificUserId) {
     wss.clients.forEach(function each(client) {
         if (client.readyState === WebSocket.OPEN) {
@@ -144,5 +151,5 @@ function broadcast(data) {
 }
 
 server.listen(process.env.PORT || PORT, () => {
-    console.log(`Server started on`, PORT);
+    console.log(`Server started on`, process.env.PORT || PORT);
 });
