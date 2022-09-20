@@ -125,12 +125,12 @@ function broadcastButExclude(data, specificUserId) {
 }
 
 // Remove when heroku stops closing my websocket
-// setInterval(() => {
-//     wss.clients.forEach((client) => {
-//         console.log("I clocked to not shut down")
-//       client.send(true);
-//     });
-//   }, 20000);
+setInterval(() => {
+    wss.clients.forEach((client) => {
+        console.log("I clocked so that heroku will not kill the websocket")
+      client.send("clocked");
+    });
+  }, 20000);
 
 function broadcastToSingleClient(data, specificUserId) {
     wss.clients.forEach(function each(client) {

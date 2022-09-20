@@ -1,8 +1,9 @@
-const websocket = new WebSocket("ws://localhost:8999");
+// In local
+// const websocket = new WebSocket("ws://localhost:8999");
 
 // To make it work with heroku.
-// var HOST = location.origin.replace(/^http/, 'ws')
-// const websocket = new WebSocket(HOST);
+var HOST = location.origin.replace(/^http/, 'ws')
+const websocket = new WebSocket(HOST);
 
 function sortTargetOfStatusMsg(msg) {
     switch (msg.target) {
@@ -53,6 +54,10 @@ function sendMsgToWebsocket(data) {
 
 websocket.addEventListener("message", (event) => {
     // console.log(event.data);
+    if (event.data === "clocked") {
+        console.log("I clocked so that heroku will not kill the websocket")
+        return;
+    }
     const parsedData = parseJson(event.data);
 
     // easter egg check!
@@ -64,7 +69,7 @@ websocket.addEventListener("message", (event) => {
 })
 
 websocket.addEventListener('close', (event) => {
-    //console.log('Server down...', event);
+    console.log('Server down...', event);
     manageErrorAndAppendToPopupBox("Sorry, the server shut down, either from timeout or something going wrong with your validation, redirecting to login.");
-    // location.assign("/login");
+    location.assign("/login");
 });
