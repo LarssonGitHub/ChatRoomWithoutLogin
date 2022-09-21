@@ -74,7 +74,8 @@ wss.on('connection', async (ws, req) => {
     try {
         console.log(`Client connected from IP ${ws._socket.remoteAddress}`);
         ws.id = uuidv4();
-        console.log("new user set as online!", await setIdAndStatusForWebsocket(ws.id));
+        const addedUser = await setIdAndStatusForWebsocket(ws.id);
+        console.log(addedUser.userName ? `Added ${addedUser.userName} to database` : `${addedUser.userName} couldn't be added!`)
         broadcast(await botWelcomeMsg(ws.id))
         broadcast(await clientSize())
         broadcast(await clientList(ws.id))
@@ -87,7 +88,8 @@ wss.on('connection', async (ws, req) => {
     ws.on("close", async () => {
         try {
             broadcast(await botGoodbyeMsg(ws.id))
-            console.log("old user DELETED!", await removeIdAndStatusForWebsocket(ws.id));
+            const removedUser = await removeIdAndStatusForWebsocket(ws.id);
+            console.log(removedUser.userName ? `Deleted ${removedUser.userName} from database` : `${removedUser.userName} couldn't be deleted!`)
             broadcast(await clientSize())
             broadcast(await clientList(ws.id))
         } catch (err) {
@@ -128,9 +130,9 @@ function broadcastButExclude(data, specificUserId) {
 setInterval(() => {
     wss.clients.forEach((client) => {
         console.log("I clocked so that heroku will not kill the websocket")
-      client.send("clocked");
+        client.send("clocked");
     });
-  }, 20000);
+}, 20000);
 
 function broadcastToSingleClient(data, specificUserId) {
     wss.clients.forEach(function each(client) {
