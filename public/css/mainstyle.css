@@ -104,9 +104,12 @@ header,
 }
 
 #loginContainer {
-    max-width: 600px;
-    background-color: red;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    background-color: #194c7e !important;
     padding: 2rem 1.5rem 3rem 1.5rem;
+    border-radius: 15px;
 }
 
 .buttonContainer {
@@ -117,16 +120,18 @@ header,
 }
 
 .buttonContainer>button {
-    margin-top: 1.3rem;
+    margin-top: 1.2rem;
+}
+input {
+    border: none;
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: 0.375rem 0.75rem;
+    background-clip: padding-box;
+    border-radius: 6px;
 }
 
-.loginContainer {
-    margin: 0 auto;
-    background-color: blue;
-    width: 100%;
-    max-width: 400px;
-    padding: 1rem 0.5rem 1rem 0.5rem;
-}
 
 #errorContainer {
     bottom: 2rem;
@@ -303,6 +308,7 @@ body {
     border-radius: 6px 0 0 6px;
     border: none;
     /* box-shadow: rgb(100 100 111 / 30%) 0px 14px 30px -4px; */
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     padding: 0.5rem 1rem;
 }
 
@@ -393,6 +399,10 @@ body {
     width: 100%;
     font-size: 0.8rem;
     font-weight: 500;
+}
+
+small {
+    color: #02172c;
 }
 
 .closeSection {
@@ -549,7 +559,7 @@ i {
 }
 
 button {
-    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 7px 0px; */
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
