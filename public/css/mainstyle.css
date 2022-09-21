@@ -1,8 +1,7 @@
 :root {
-    --active-color: #6ca0d3;
+    --active-color: #1774c3;
     ;
 }
-
 
 * {
     font-family: "Roboto", Arial, Helvetica, sans-serif;
@@ -11,19 +10,22 @@
     line-height: 0.7rem; */
 }
 
+input,
+textarea {
+    background-color: #f0f4f5;
+}
+
 a,
 #loadPreChatBtn {
     color: #02172c;
     font-weight: 500;
     transition: 0.3s;
-    /* color: #021c36; */
 }
 
 a:visited {
     color: #02172c;
 }
 
-/* Why bootstrap? */
 p {
     margin-top: 0.3rem;
 }
@@ -82,9 +84,13 @@ h5 {
 header,
 #toolbar,
 #canvasToolBar {
-    /* background-color: #194c7e !important; */
-    background-color: #1c5d9c  !important;
-    /* box-shadow: rgb(100 100 111 / 30%) 0px 10px 12px -4px; */
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    background-color: #194c7e !important;
+}
+
+#textAreaContainer {
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; */
+    /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; */
 }
 
 #loginWrapper {
@@ -130,23 +136,21 @@ header,
     max-width: 800px;
     width: 80%;
     z-index: 9999999999;
-    background-color: #f18282;
+    background-color: #a12626;
     padding: 0.9rem 1.3rem;
 }
-
-#imgImgContainer {}
 
 #errorContent {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
-    color: #D8000C;
     gap: 0.5rem;
 }
 
 #errorText {
     margin: 0;
+    color: white !important;
 }
 
 body,
@@ -156,7 +160,7 @@ html {
 
 body {
     position: relative;
-    background-color: #bfdbff;
+    background-color: #d9dfe8;
 }
 
 .clientTime {
@@ -187,11 +191,11 @@ body {
 }
 
 .activeBtn span {
-    color: #e4e5ff
+    color: #f0a400
 }
 
 .activeBtn i {
-    color: #e4e5ff
+    color: #f0a400
 }
 
 .hidden {
@@ -200,33 +204,37 @@ body {
 
 /* Messages by mr bott */
 .botMsg {
-    background-color: #03487c;
-    border-radius: 1px 10px 10px 1px;
-    border-left: solid 3px #02172c;
+    background-color: #7894b6;
+    border-radius: 15px;
+    /* border-left: solid 3px #02172c; */
     margin-right: 10%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .errorMsg {
-    background-color:     #f18282;;
-    border-radius: 1px 10px 10px 1px;
-    border-left: solid 3px #02172c;
+    background-color: white;
+    border-radius: 15px;
+    /* border-left: solid 3px #02172c; */
     margin-right: 10%;
-    color: #D8000C;
+    color: #a12626 !important;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .chatMsg,
 .imageMsg {
-    background-color: #7dafd5;
+    background-color: #c3d2de;
     margin-right: 10%;
-    border-radius: 1px 10px 10px 1px;
-    border-left: solid 3px #02172c;
+    border-radius: 15px;
+    /* border-left: solid 3px #02172c; */
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .clientsPost {
-    background-color: #dff3f8 ;
+    background-color: #f0f4f5;
     margin-left: 10%;
-    border-radius: 10px 1px 1px 10px;
-    border-right: solid 3px #02172c;
+    border-radius: 15px;
+    /* border-right: solid 3px #02172c; */
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 #loginBtn {
@@ -270,10 +278,8 @@ body {
 }
 
 #chatSectionWrapper {
-    /* background-color: red; */
     display: flex;
     justify-content: center;
-    /* padding-bottom: 120px; */
     padding-top: 0.8rem;
     height: calc(100% - 150px);
 }
@@ -304,7 +310,7 @@ body {
     border-radius: 0 6px 6px 0;
     cursor: pointer;
     border: none;
-    /* background-color: #F7B832; */
+    /* background-color: #f0a400; */
     /* margin-left: 0.2rem; */
     padding: 0.5rem 2rem;
     font-size: 1.1rem;
@@ -329,7 +335,7 @@ body {
 
 #msgImgInputRemove {
     text-align: end;
-    color: #bb1b1b;
+    color: #e94949;
     /* margin-left: 0.5rem; */
     cursor: pointer;
     text-decoration: underline;
@@ -348,8 +354,8 @@ body {
 }
 
 .chatTemplateContainer {
-    margin-top: 0.4rem;
-    margin-bottom: 0.4rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     padding: 0.8rem 1.5rem;
     /* box-shadow: rgba(0, 0, 0, 0.3) 0px 6px 20px -4px; */
 }
@@ -361,7 +367,7 @@ body {
     z-index: 999999999;
     top: 0;
     right: 0;
-    background-color: #1c5fa7;
+    background-color: #d9dfe8;
     overflow-y: hidden;
     transition: 0.5s;
 }
@@ -395,7 +401,6 @@ body {
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-    /* color: white; */
 }
 
 .smallHeadingInfo {
@@ -409,7 +414,7 @@ body {
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-    margin: 0 0 0.7rem 0;
+    margin: 0 0 0.6rem 0;
 }
 
 .offCanvasHeader {
@@ -444,7 +449,7 @@ body {
 .closeSectionMark {
     font-size: 1.5rem;
     font-weight: bolder;
-    color: #bb1b1b;
+    color: #e94949;
     cursor: pointer;
     transition: 0.3s;
     /* box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 7px 0px; */
@@ -534,7 +539,7 @@ i {
 }
 
 #canvasBrush [type=radio]:checked+i {
-    color: var(--active-color);
+    color: #f0a400;
 }
 
 .canvasUpperBarText {
@@ -549,20 +554,23 @@ button {
     border-radius: 6px;
     cursor: pointer;
     padding: 0.5rem 1.5rem;
-    background-color: #F7B832;
+    background-color: #f0a400;
     font-weight: 500;
     font-size: 0.9rem;
     transition: 0.3s;
 }
 
-.navbar-toggler-icon {
-    background-color: #F7B832;
-}
+/* .navbar-toggler-icon {
+    background-color: #f0a400;
+} */
 
-.navbar h2, h3, h4 {
+.navbar h2,
+h3,
+h4 {
     align-items: center;
     margin: 0.8rem 0;
 }
+
 #saveToDatabaseBtn {
     white-space: nowrap;
 }
@@ -601,31 +609,32 @@ button {
     #cleanCanvas:hover,
     #saveToDatabaseBtn:hover {
         transition: 0.3s;
-        color: #6ca0d3;
+        color: #1774c3;
     }
 
     #toolbar i:hover {
         transition: 0.3s;
-        color: #0d3c6b;
+        color: #1774c3;
     }
 
     #loadPreChatBtn:hover b,
     a:hover {
         transition: 0.3s;
-        color: #0d3c6b;
+        color: #1774c3;
     }
 
     .closeSectionMark:hover {
-        color: #e4e5ff;
+        color: #f67979;
         transition: 0.3s;
     }
 
     button:hover {
         transition: 0.3s;
-        background-color: #f0a400;
+        background-color: #f5b326;
     }
+
     #msgImgInputRemove:hover {
-        color: #e4e5ff;
+        color: #1774c3;
         transition: 0.3s;
     }
 }
