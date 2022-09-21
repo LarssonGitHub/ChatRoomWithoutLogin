@@ -271,7 +271,7 @@ body {
     overflow: scroll;
     display: flex;
     flex-direction: column;
-    /* padding: 0.2rem 0.4rem; */
+    padding: 0 0.3rem;
 }
 
 #chatContainer::-webkit-scrollbar {
