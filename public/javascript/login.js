@@ -1,7 +1,8 @@
 const loginForm = document.getElementById("loginForm");
-
+const loginBtn = document.getElementById("loginBtn")
 function submitLoginForm(e) {
     e.preventDefault();
+    loginBtn.disabled = true;
     const formEntries = ObjectifyEntriesAndStringify(e.target)
     const options = setFetchPostOptions(formEntries)
     fetch('/login', options)
@@ -9,6 +10,7 @@ function submitLoginForm(e) {
         .then(data => {
             if (data.redirectTo) {
                 location.assign(data.redirectTo)
+                // loginBtn.disabled = false;
               }
             if (data.err) {
                 throw data.err;
@@ -16,6 +18,7 @@ function submitLoginForm(e) {
         }).catch(err => {
             //console.log(err, "33");
             manageErrorAndAppendToPopupBox(err)
+            loginBtn.disabled = false;
         });
 }
 
