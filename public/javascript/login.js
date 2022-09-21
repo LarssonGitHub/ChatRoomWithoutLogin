@@ -1,9 +1,8 @@
 const loginForm = document.getElementById("loginForm");
 const loginBtn = document.getElementById("loginBtn");
-const number = 1;
+
 function submitLoginForm(e) {
     e.preventDefault();
-    number + 1
     loginBtn.disabled = true;
     const formEntries = ObjectifyEntriesAndStringify(e.target)
     const options = setFetchPostOptions(formEntries)
