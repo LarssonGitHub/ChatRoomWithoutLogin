@@ -43,10 +43,12 @@ async function renderIndex(req, res, next) {
 }
 
 function renderLogin(req, res, next) {
+    console.log("hi")
     res.status(200).render('pages/login');
 }
 
 function renderNotFound(req, res, next) {
+    console.log('404. Opps, someone tried to access a route which does not exist.');
     res.status(200).render('pages/notfound');
 }
 
@@ -54,12 +56,12 @@ function logout(req, res, next) {
     req.session.destroy((err) => {
         if (err) {
             console.log(err, "from route controller");
-            res.status(404).redirect('/')
+            res.status(404).redirect("/")
             return
         }
         res.clearCookie(SESSION_NAME);
         console.log('cookie destroyed');
-        res.status(200).redirect('/')
+        res.status(200).redirect("/user/login")
     });
 }
 

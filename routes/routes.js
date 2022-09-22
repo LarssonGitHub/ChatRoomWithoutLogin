@@ -46,11 +46,11 @@ router.use(session({
 
 router.get("/", checkUserAccess, renderIndex);
 
-router.get('/logout', checkUserAccess, logout);
+router.get('/user/logout/', checkUserAccess, logout);
 
-router.get("/login", renderLogin);
+router.get("/user/login/", renderLogin);
 
-router.post("/login", submitLogin);
+router.post("/user/login/", submitLogin);
 
 router.get("/api/gallery", fetchGallery);
 

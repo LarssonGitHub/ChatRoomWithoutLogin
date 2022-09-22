@@ -6,7 +6,7 @@ function submitLoginForm(e) {
     loginBtn.disabled = true;
     const formEntries = ObjectifyEntriesAndStringify(e.target)
     const options = setFetchPostOptions(formEntries)
-    fetch('/login', options)
+    fetch('/user/login', options)
         .then(resp => resp.json())
         .then(data => {
             if (data.redirectTo) {
