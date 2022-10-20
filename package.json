@@ -16,12 +16,16 @@
     "ws": "^8.2.3"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "clean": "rimraf app/",
+    "copy-files": "copyfiles ./*.json views/**/* public/css/**/* public/assets/**/* app/",
+    "build": " rimraf app/ && copyfiles ./*.json views/**/* public/css/**/* public/assets/**/* app/ && tsc.cmd"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.13"
+    "copyfiles": "^2.4.1",
+    "nodemon": "^2.0.13",
+    "rimraf": "^3.0.2"
   }
 }
