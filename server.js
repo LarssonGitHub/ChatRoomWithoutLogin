@@ -153,5 +153,5 @@ function broadcast(data) {
 }
 
 server.listen(process.env.PORT || PORT, () => {
-    console.log(`Server started on`, process.env.PORT || PORT);
+    console.log(`Server started on`, process.env.PORT);
 });

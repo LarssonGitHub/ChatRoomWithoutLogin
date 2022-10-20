@@ -43,7 +43,6 @@ async function renderIndex(req, res, next) {
 }
 
 function renderLogin(req, res, next) {
-    console.log("hi")
     res.status(200).render('pages/login');
 }
 
