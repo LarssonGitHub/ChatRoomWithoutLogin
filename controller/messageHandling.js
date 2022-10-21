@@ -16,7 +16,7 @@ import {
 async function getUserName(wsId) {
     try {
         const userObj = await getUser(wsId);
-        return userObj[0].userName;
+        return userObj.userName;
     } catch (err) {
         //console.log(err, "4");
         return Promise.reject(err);
