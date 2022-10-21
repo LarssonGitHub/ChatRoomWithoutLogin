@@ -31,18 +31,18 @@ const {
     SESSION_SECRET,
 } = process.env;
 
-router.use(session({
-    name: SESSION_NAME,
-    secret: SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    store: new MemoryStore(),
-    cookie: {
-        maxAge: Number(SESSION_LIFETIME),
-        sameSite: 'strict',
-        secure: NODE_ENV === 'production',
-    },
-}));
+// router.use(session({
+//     name: SESSION_NAME,
+//     secret: SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false,
+//     store: new MemoryStore(),
+//     cookie: {
+//         maxAge: Number(SESSION_LIFETIME),
+//         sameSite: 'strict',
+//         secure: NODE_ENV === 'production',
+//     },
+// }));
 
 router.get("/", checkUserAccess, renderIndex);
 

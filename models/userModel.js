@@ -44,7 +44,7 @@ async function addNewUser(userName) {
             userStatus: "online",
             tempWebsocketId: false
         });
-        return await newUser.save();
+        return await Users.create(newUser);
     } catch (err) {
         //console.log(err, "25");
         return Promise.reject(err);
@@ -71,7 +71,7 @@ async function getUser(wsID) {
     try {
         const userObject = await Users.find({
             tempWebsocketId: wsID
-        });
+        }).lean();
         if (userObject.length === 0) {
             throw "couldn't find user..";
         }
@@ -82,16 +82,14 @@ async function getUser(wsID) {
     }
 }
 
-async function setIdAndStatusForWebsocket(wsID) {
+async function setIdAndStatusForWebsocket(wsID, userId) {
     try {
-        const userIdFromArray = usersInTempMemory[0];
-        usersInTempMemory.shift();
-        const updateUser = await Users.findByIdAndUpdate(userIdFromArray, {
+        const updateUser = await Users.findByIdAndUpdate(userId, {
             userStatus: "online",
             tempWebsocketId: wsID,
         }, {
             new: true
-        });
+        }).lean();
         if (!updateUser) {
             throw "Something went wrong";
         }
@@ -103,6 +101,7 @@ async function setIdAndStatusForWebsocket(wsID) {
 }
 
 async function removeIdAndStatusForWebsocket(wsId) {
+    // todo hehehrhrhehrheerh
     try {
         const currentUserObject = await getUser(wsId);
         if (!currentUserObject.length === 0 || !currentUserObject[0]._id) {

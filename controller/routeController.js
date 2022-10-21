@@ -21,18 +21,20 @@ const {
 } = process.env;
 
 async function renderIndex(req, res, next) {
+    console.log("render index")
     try {
         usersInTempMemory.push(req.session.user._id)
-        req.session.destroy((err) => {
-            if (err) {
-                console.log(err, "from route controller");
-                res.status(404).redirect('/')
-                return
-            }
-            res.clearCookie(SESSION_NAME);
-            console.log('cookie destroyed');
-            res.status(200).render('pages/index');
-        });
+        res.status(200).render('pages/index');
+        // req.session.destroy((err) => {
+        //     if (err) {
+        //         console.log(err, "from route controller");
+        //         res.status(404).redirect('/')
+        //         return
+        //     }
+        //     res.clearCookie(SESSION_NAME);
+        //     console.log('cookie destroyed');
+        //     res.status(200).render('pages/index');
+        // });
     } catch (err) {
         //console.log(err, "14");
         const errMessage = errHasSensitiveInfo(err);

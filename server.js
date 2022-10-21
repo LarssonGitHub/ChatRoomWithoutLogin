@@ -2,6 +2,9 @@
 import WebSocket, {
     WebSocketServer
 } from 'ws';
+import session, {
+    MemoryStore
+} from 'express-session';
 import express from 'express';
 import http from 'http';
 import dotenv from 'dotenv';
@@ -33,6 +36,9 @@ import {
     removeIdAndStatusForWebsocket,
     setIdAndStatusForWebsocket
 } from "./models/userModel.js";
+import {
+    Console
+} from 'console';
 
 
 // Safe measure if server crashes and restarts!
@@ -58,8 +64,15 @@ mongoose.connect(connectionStream, {
     process.exit()
 })
 
+// const wss = new WebSocketServer({
+//     server
+// });
+
+// https://github.com/websockets/ws/blob/master/examples/express-session-parse/index.js
+// Create a no server, then call the verfication, then call a server on, then call the protcol to connect
 const wss = new WebSocketServer({
-    server
+    clientTracking: true,
+    noServer: true
 });
 
 app.use(express.urlencoded({
@@ -67,14 +80,28 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 app.use(express.static("public"));
+var sessionParser = session({
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true
+});
+app.use(sessionParser);
 app.use(router);
 app.set('view engine', 'ejs');
+
+server.on('upgrade', function (request, socket, head) {
+    sessionParser(request, {}, () => {
+        wss.handleUpgrade(request, socket, head, function (ws) {
+            wss.emit('connection', ws, request);
+        });
+    });
+});
 
 wss.on('connection', async (ws, req) => {
     try {
         console.log(`Client connected from IP ${ws._socket.remoteAddress}`);
         ws.id = uuidv4();
-        const addedUser = await setIdAndStatusForWebsocket(ws.id);
+        const addedUser = await setIdAndStatusForWebsocket(ws.id, req.session.user._id);
         console.log(addedUser.userName ? `Added ${addedUser.userName} to database` : `${addedUser.userName} couldn't be added!`)
         broadcast(await botWelcomeMsg(ws.id))
         broadcast(await clientSize())
@@ -144,6 +171,7 @@ function broadcastToSingleClient(data, specificUserId) {
     });
 }
 
+// Problem with wss because it's its own server.. PROBLEM HERE!!!
 function broadcast(data) {
     wss.clients.forEach(client => {
         if (client.readyState === WebSocket.OPEN) {
