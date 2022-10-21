@@ -34,7 +34,8 @@ import {
 } from "./models/userModel.js";
 
 import {
-    registerNewUser
+    registerNewUser,
+    destroySessionInWebsocket
 } from "./controller/authentication.js";
 
 // Safe measure if server crashes and restarts!
@@ -87,8 +88,12 @@ app.set('view engine', 'ejs');
 server.on('upgrade', function (req, socket, head) {
     sessionParser(req, {}, () => {
         wss.handleUpgrade(req, socket, head, function (ws) {
-            //Destroy socket.... fallback
-            //with has access session
+            // TODO see if this works
+            if (!req.session.userHasAccess) {
+                socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
+                socket.destroy();
+                return;
+            }
             wss.emit('connection', ws, req);
         });
     });
@@ -100,22 +105,20 @@ wss.on('connection', async (ws, req) => {
         const user = await registerNewUser(req.session.userName);
         console.log(`Client connected from IP ${ws._socket.remoteAddress}`);
         ws.id = user._id.toString();
-        const addedUser = await setIdAndStatusForWebsocket(ws.id);
-        console.log(addedUser.userName ? `Added ${addedUser.userName} to database` : `${addedUser.userName} couldn't be added!`)
+        await setIdAndStatusForWebsocket(ws.id);
         broadcast(await botWelcomeMsg(ws.id))
         broadcast(await clientSize())
         broadcast(await clientList(ws.id))
     } catch (err) {
-        if (err === "userDidntUpdate") {
-            ws.terminate("User has been terminated because there is a major error, and as to not break the server, user is removed", 500);
-        }
+        ws.terminate("User has been terminated because there is a major error, and as to not break the server, user is removed", 500);
         broadcast(await botErrorPublicMsg(err));
     }
     ws.on("close", async () => {
         try {
+            // TODO find a better, clean correct way to destroy session from within websocket
+            destroySessionInWebsocket(req);
             broadcast(await botGoodbyeMsg(ws.id))
-            const removedUser = await removeIdAndStatusForWebsocket(ws.id);
-            console.log(removedUser.userName ? `Deleted ${removedUser.userName} from database` : `${removedUser.userName} couldn't be deleted!`)
+            await removeIdAndStatusForWebsocket(ws.id);
             broadcast(await clientSize())
             broadcast(await clientList(ws.id))
         } catch (err) {
@@ -142,7 +145,6 @@ wss.on('connection', async (ws, req) => {
 });
 
 function broadcastButExclude(data, specificUserId) {
-
     wss.clients.forEach(function each(client) {
         if (client.readyState === WebSocket.OPEN) {
             if (client.id !== specificUserId) {

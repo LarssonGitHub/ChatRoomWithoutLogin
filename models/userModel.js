@@ -76,15 +76,15 @@ async function getUser(wsID) {
 
 async function setIdAndStatusForWebsocket(userId) {
     try {
-        const updateUser = await Users.findByIdAndUpdate(userId, {
+        const user = await Users.findByIdAndUpdate(userId, {
             userStatus: "online",
         }, {
             new: true
         }).lean();
-        if (!updateUser) {
+        if (!user) {
             throw "Something went wrong";
         }
-        return updateUser;
+        return  console.log(user.userName ? `Added ${user.userName} to database` : `${user.userName} couldn't be added!`)
     } catch (err) {
         //console.log(err, "28");
         return Promise.reject("userDidntUpdate");
@@ -102,7 +102,7 @@ async function removeIdAndStatusForWebsocket(wsId) {
         if (deleteUser === null) {
             throw "update user is undefined or null";
         }
-        return deleteUser;
+        return console.log(user.userName ? `Deleted ${user.userName} from database` : `${user.userName} couldn't be deleted!`)
     } catch (err) {
         //console.log(err, "29");
         return Promise.reject("One user wasn't correctly logged out so the list of users online may not bee accurate. However, the app should still work, so chat away!");

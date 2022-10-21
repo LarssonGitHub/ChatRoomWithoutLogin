@@ -43,8 +43,21 @@ async function loginUser(userName, userPassword) {
 
 }
 
+// TODO find a better, clean correct way to destroy session from within websocket
+function destroySessionInWebsocket(req) {
+    req.session.destroy((err) => {
+        if (err) {
+            console.log(err, "can't destroy session");
+            // ws.terminate()
+        }
+        console.log('session destroyed');
+        // ws.close()
+    });
+}
+
 export {
     registerNewUser,
     loginUser,
-    checkIfUserAlreadyExist
+    checkIfUserAlreadyExist,
+    destroySessionInWebsocket
 }

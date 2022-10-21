@@ -48,7 +48,6 @@ function logout(req, res, next) {
             res.status(404).redirect("/")
             return
         }
-        res.clearCookie(SESSION_NAME);
         console.log('cookie destroyed');
         res.status(200).redirect("/user/login")
     });
