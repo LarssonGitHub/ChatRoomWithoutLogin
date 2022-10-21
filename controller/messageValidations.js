@@ -24,7 +24,7 @@ function formatToStatusObj(type, target, data) {
 }
 
 function formatToChatObj(type, user, data, imgData, save) {
-    const msgTemplate = {}
+    let msgTemplate = {}
     if (type) {
         msgTemplate.type = type;
     }

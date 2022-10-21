@@ -54,7 +54,7 @@ function setFetchPostOptions(formEntries) {
 }
 
 function constructMsgObject(type, user, chatData, binaryCanvasValue, saveToDatabase) {
-    msgTemplate = {};
+    let msgTemplate = {};
     if (type) {
         msgTemplate.type = type;
     }
