@@ -2,11 +2,6 @@ import {
     Users,
 } from "./usersSchema.js"
 
-import {
-    usersInTempMemory
-} from "../controller/authentication.js"
-
-
 async function resetDatabaseStatus() {
     try {
         const updateUsers = await Users.deleteMany({})
@@ -42,9 +37,8 @@ async function addNewUser(userName) {
         const newUser = new Users({
             userName: userName,
             userStatus: "online",
-            tempWebsocketId: false
         });
-        return await newUser.save();
+        return await Users.create(newUser);
     } catch (err) {
         //console.log(err, "25");
         return Promise.reject(err);
@@ -69,33 +63,28 @@ async function checkForUser(userName, userPassword) {
 
 async function getUser(wsID) {
     try {
-        const userObject = await Users.find({
-            tempWebsocketId: wsID
-        });
-        if (userObject.length === 0) {
+        const user = await await Users.findById(wsID).lean();
+        if (!user) {
             throw "couldn't find user..";
         }
-        return userObject;
+        return user;
     } catch (err) {
         //console.log(err, "27");
         return Promise.reject(err);
     }
 }
 
-async function setIdAndStatusForWebsocket(wsID) {
+async function setIdAndStatusForWebsocket(userId) {
     try {
-        const userIdFromArray = usersInTempMemory[0];
-        usersInTempMemory.shift();
-        const updateUser = await Users.findByIdAndUpdate(userIdFromArray, {
+        const user = await Users.findByIdAndUpdate(userId, {
             userStatus: "online",
-            tempWebsocketId: wsID,
         }, {
             new: true
-        });
-        if (!updateUser) {
+        }).lean();
+        if (!user) {
             throw "Something went wrong";
         }
-        return updateUser;
+        return  console.log(user.userName ? `Added ${user.userName} to database` : `${user.userName} couldn't be added!`)
     } catch (err) {
         //console.log(err, "28");
         return Promise.reject("userDidntUpdate");
@@ -103,17 +92,17 @@ async function setIdAndStatusForWebsocket(wsID) {
 }
 
 async function removeIdAndStatusForWebsocket(wsId) {
+    // todo hehehrhrhehrheerh
     try {
-        const currentUserObject = await getUser(wsId);
-        if (!currentUserObject.length === 0 || !currentUserObject[0]._id) {
-            throw "something went wrong when searching for user id!";
+        const user = await getUser(wsId);
+        if (!user || Object.keys(user).length === 0) {
+            throw "something went wrong when searching for user id, can't delete user!";
         }
-        const deleteUser = await Users.findByIdAndDelete(currentUserObject[0]._id).lean();
-        //console.log(deleteUser)
+        const deleteUser = await Users.findByIdAndDelete(user._id).lean();
         if (deleteUser === null) {
             throw "update user is undefined or null";
         }
-        return deleteUser;
+        return console.log(user.userName ? `Deleted ${user.userName} from database` : `${user.userName} couldn't be deleted!`)
     } catch (err) {
         //console.log(err, "29");
         return Promise.reject("One user wasn't correctly logged out so the list of users online may not bee accurate. However, the app should still work, so chat away!");

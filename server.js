@@ -2,14 +2,13 @@
 import WebSocket, {
     WebSocketServer
 } from 'ws';
+import session, {
+    MemoryStore
+} from 'express-session';
 import express from 'express';
 import http from 'http';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import {
-    v4 as uuidv4
-} from 'uuid';
-
 import {
     router
 } from './routes/routes.js';
@@ -34,6 +33,10 @@ import {
     setIdAndStatusForWebsocket
 } from "./models/userModel.js";
 
+import {
+    registerNewUser,
+    destroySessionInWebsocket
+} from "./controller/authentication.js";
 
 // Safe measure if server crashes and restarts!
 resetDatabaseUsers();
@@ -45,7 +48,14 @@ dotenv.config();
 const {
     PORT,
     connectionStream,
+    SESSION_SECRET
 } = process.env;
+
+var sessionParser = session({
+    secret: SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true
+});
 
 mongoose.connect(connectionStream, {
     useNewUrlParser: true,
@@ -58,8 +68,12 @@ mongoose.connect(connectionStream, {
     process.exit()
 })
 
+
+// https://github.com/websockets/ws/blob/master/examples/express-session-parse/index.js
+// Create a no server, then call the verification, then call a server on, then call the protocol to connect
 const wss = new WebSocketServer({
-    server
+    clientTracking: true,
+    noServer: true
 });
 
 app.use(express.urlencoded({
@@ -67,36 +81,51 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 app.use(express.static("public"));
+app.use(sessionParser);
 app.use(router);
 app.set('view engine', 'ejs');
 
+server.on('upgrade', function (req, socket, head) {
+    sessionParser(req, {}, () => {
+        wss.handleUpgrade(req, socket, head, function (ws) {
+            // TODO see if this works
+            if (!req.session.userHasAccess) {
+                socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
+                socket.destroy();
+                return;
+            }
+            wss.emit('connection', ws, req);
+        });
+    });
+});
+
 wss.on('connection', async (ws, req) => {
     try {
+        //Used to validate user and put the mongodb id as the id for socket for easier reference later.
+        const user = await registerNewUser(req.session.userName);
         console.log(`Client connected from IP ${ws._socket.remoteAddress}`);
-        ws.id = uuidv4();
-        const addedUser = await setIdAndStatusForWebsocket(ws.id);
-        console.log(addedUser.userName ? `Added ${addedUser.userName} to database` : `${addedUser.userName} couldn't be added!`)
+        ws.id = user._id.toString();
+        await setIdAndStatusForWebsocket(ws.id);
         broadcast(await botWelcomeMsg(ws.id))
         broadcast(await clientSize())
         broadcast(await clientList(ws.id))
     } catch (err) {
-        if (err === "userDidntUpdate") {
-            ws.terminate("User has been terminated because there is a major error, and as to not break the server, user is removed", 500);
-        }
+        ws.terminate("User has been terminated because there is a major error, and as to not break the server, user is removed", 500);
         broadcast(await botErrorPublicMsg(err));
     }
     ws.on("close", async () => {
         try {
+            // TODO find a better, clean correct way to destroy session from within websocket
+            destroySessionInWebsocket(req);
             broadcast(await botGoodbyeMsg(ws.id))
-            const removedUser = await removeIdAndStatusForWebsocket(ws.id);
-            console.log(removedUser.userName ? `Deleted ${removedUser.userName} from database` : `${removedUser.userName} couldn't be deleted!`)
+            await removeIdAndStatusForWebsocket(ws.id);
             broadcast(await clientSize())
             broadcast(await clientList(ws.id))
         } catch (err) {
             console.log(err, "1");
             broadcast(await botErrorPublicMsg(err));
         }
-    });
+    })
     ws.on("message", async (incomingData) => {
         try {
             const validatedData = await validateTypeOfIncomingMsg(incomingData);
@@ -116,7 +145,6 @@ wss.on('connection', async (ws, req) => {
 });
 
 function broadcastButExclude(data, specificUserId) {
-
     wss.clients.forEach(function each(client) {
         if (client.readyState === WebSocket.OPEN) {
             if (client.id !== specificUserId) {
@@ -127,12 +155,12 @@ function broadcastButExclude(data, specificUserId) {
 }
 
 // Remove when heroku stops closing my websocket
-setInterval(() => {
-    wss.clients.forEach((client) => {
-        console.log("I clocked so that heroku will not kill the websocket")
-        client.send("clocked");
-    });
-}, 20000);
+// setInterval(() => {
+//     wss.clients.forEach((client) => {
+//         console.log("I clocked so that heroku will not kill the websocket")
+//         client.send("clocked");
+//     });
+// }, 20000);
 
 function broadcastToSingleClient(data, specificUserId) {
     wss.clients.forEach(function each(client) {
@@ -144,6 +172,7 @@ function broadcastToSingleClient(data, specificUserId) {
     });
 }
 
+// Problem with wss because it's its own server.. PROBLEM HERE!!!
 function broadcast(data) {
     wss.clients.forEach(client => {
         if (client.readyState === WebSocket.OPEN) {
@@ -153,5 +182,5 @@ function broadcast(data) {
 }
 
 server.listen(process.env.PORT || PORT, () => {
-    console.log(`Server started on`, process.env.PORT || PORT);
+    console.log(`Server started on`, process.env.PORT);
 });

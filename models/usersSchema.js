@@ -11,10 +11,6 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    tempWebsocketId: {
-        type: String,
-        required: true
-    },
 });
 
 const Users = mongoose.model('user', userSchema);

@@ -8,8 +8,7 @@ import {
 } from "../models/chatModel.js"
 
 import {
-    registerNewUser,
-    usersInTempMemory
+    checkIfUserAlreadyExist
 } from "../controller/authentication.js";
 
 import dotenv from 'dotenv';
@@ -21,18 +20,9 @@ const {
 } = process.env;
 
 async function renderIndex(req, res, next) {
+    console.log("render index")
     try {
-        usersInTempMemory.push(req.session.user._id)
-        req.session.destroy((err) => {
-            if (err) {
-                console.log(err, "from route controller");
-                res.status(404).redirect('/')
-                return
-            }
-            res.clearCookie(SESSION_NAME);
-            console.log('cookie destroyed');
-            res.status(200).render('pages/index');
-        });
+        res.status(200).render('pages/index');
     } catch (err) {
         //console.log(err, "14");
         const errMessage = errHasSensitiveInfo(err);
@@ -43,7 +33,6 @@ async function renderIndex(req, res, next) {
 }
 
 function renderLogin(req, res, next) {
-    console.log("hi")
     res.status(200).render('pages/login');
 }
 
@@ -59,7 +48,6 @@ function logout(req, res, next) {
             res.status(404).redirect("/")
             return
         }
-        res.clearCookie(SESSION_NAME);
         console.log('cookie destroyed');
         res.status(200).redirect("/user/login")
     });
@@ -68,20 +56,17 @@ function logout(req, res, next) {
 async function submitLogin(req, res, next) {
     console.log("submit login")
     try {
-        const {
-            userName
-        } = req.body;
-        const userIsValidated = await registerNewUser(userName);
-        if (userIsValidated) {
+        const isUsernameUsed = await checkIfUserAlreadyExist(req.body.userName);
+        if (isUsernameUsed) {
             req.session.userHasAccess = true;
-            req.session.user = userIsValidated;
+            req.session.userName = req.body.userName;
             res.status(200).json({
                 redirectTo: '/',
                 message: "user exist and is validated, logging in!"
             })
-            return;
+            return
         }
-        throw "Something went wrong on our end when trying to log in";
+        throw "Sorry, user already exist. Pick another name";
     } catch (err) {
         //console.log(err, "16");
         const errMessage = errHasSensitiveInfo(err);
