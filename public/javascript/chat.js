@@ -52,7 +52,8 @@ function updateFavicon(incomingNewMsg) {
 
 function notifyNewMessage() {
     editTitle()
-    playSound()
+    // TODO sound problem when calling function, take a closer look
+    // playSound()
     updateFavicon(true)
 }
 
