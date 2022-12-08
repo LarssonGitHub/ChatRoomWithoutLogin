@@ -272,10 +272,13 @@ body {
     display: flex;
     flex-direction: column;
     padding: 0 0.3rem;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 #chatContainer::-webkit-scrollbar {
     display: none;
+    
 }
 
 #typingContainer {
@@ -386,6 +389,8 @@ body {
 
 #gallerySection {
     overflow-y: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 .usernamesOnline {
