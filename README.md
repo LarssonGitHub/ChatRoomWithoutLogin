@@ -1,52 +1,34 @@
-idea:
+# Chat and Draw app (without login)
 
-An app which allows you to chat and draw images which is based on websocket communication.
+An app that allows you to chat and draw images with other people using WebSockets without having to login
 
-feats:
-
-* User can type their own nickname:
-
-* Chat-function:
- - Able to type messages
- - Able to share images made with canvas.
-
-  	* Nice to have:
-		-  text-transform: bold, italic, underscore.
-    	-  color of font.
-
-* Draw function:
- - Able to draw pictures with canvas and send it to the chat. (A separate popup box appears for the drawing)
-
- 	* Nice to have:
-		- choose size of pencil 
-		- choose color
-		- choose figure (circles, rects, etc)
-		- Able to download picture with a save icon
-
-* Miscellaneous functions: 
- - Notify user when a new message is sent
-
-	* Nice to have:
-		- User able to react to message/picture
-		- User history saved in local
-		- User able to download picture with a save icon
-		- User able to save logs
-				
+Website: https://chatapp.martindev.se/user/login
 
 
+## Development information and notes
+
+### Chat-function:
+The user should be able to: 
+- Choose their own nickname.
+- Participate in text-based communication.
+
+#### Nice to have:
+- Allowing different styles to be added to written characters, such as bold, italic, underscore, strikethrough, and more.
+- Allowing user to pick an individual color for their messages and/or profile.
 
 
+### Draw function:
+The user should be able to:
+- Draw and share images created in the app, using the canvas element.
+- Pick the size of their pencil or brush.
+- Pick color from a colour wheel.
+- Pick a figure or brushtype (circles, rectangles, etc.).
+- Download their own picture, as well as being able to decide if it should be saved in the public database or not. (Thus allowing other users to view it at a later time.)
 
 
+### Miscellaneous: 
+- Create a notification function that notifies the user when a new message is sent
 
-https://codingstatus.com/express-mvc-structure/
-
-https://stackoverflow.com/questions/18614301/keep-overflow-div-scrolled-to-bottom-unless-user-scrolls-up
-
-https://stackoverflow.com/questions/13198131/how-to-save-an-html5-canvas-as-an-image-on-a-server
-
-
-server which calls websocket...! 
-websocket and events and middleware (logging)
-commita mer!!!!!!!!!!!!! VARJE GÅNG NÅGOT ÄR KLART!
-UUID node package (generate a unique id)
+#### Nice to have:
+- Able to react to messages or pictures.
+- User is able to save and view logs.
